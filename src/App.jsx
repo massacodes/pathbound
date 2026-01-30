@@ -11,6 +11,8 @@ import heroImage from "./assets/hero-bg.jpg";
 
 // components
 
+import Nabar from "./components/layout/Navbar.jsx";
+import Footer from "./components/layout/Footer.jsx";
 import FeatureCard from "./components/cards/FeatureCard.jsx";
 import { fetchFlights } from "./services/mockTravelApi.jsx";
 
@@ -34,35 +36,9 @@ function App() {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-orange-100">
       {/* --- NAVBAR --- */}
-      <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="text-2xl font-black tracking-tighter text-primary cursor-pointer">
-            PathBound
-          </div>
+      <Nabar />
 
-          <div className="hidden md:flex gap-8 font-medium text-slate-600 items-center">
-            <a
-              href="#destinations"
-              className="hover:text-primary transition-colors"
-            >
-              Destinations
-            </a>
-            <a
-              href="#how-it-works"
-              className="hover:text-primary transition-colors"
-            >
-              How it Works
-            </a>
-            <a href="#deals" className="hover:text-primary transition-colors">
-              Today's Deals
-            </a>
-            <button className="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all shadow-lg shadow-orange-200">
-              Book a Trip
-            </button>
-          </div>
-        </div>
-      </nav>
-
+      {/* --- MAIN CONTENT --- */}
       <main>
         {/* --- HERO SECTION --- */}
         <section className="pt-40 pb-24 px-6 bg-gray-200 relative py-20 text-center overflow-hidden min-h-[60vh] flex items-center">
@@ -122,7 +98,7 @@ function App() {
         <section id="how-it-works" className="py-24 px-6 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-slate-900">
+              <h2 className="text-3xl font-bold mb-4 text-ink">
                 Why book with PathBound?
               </h2>
               <p className="">
@@ -168,9 +144,9 @@ function App() {
               </h2>
               <p className="text-white mb-8 text-lg">
                 At PathBound, we believe travel is more than just reaching a
-                destination it is a pursuit of the extraordinary, we curate
+                destination it is a pursuit of the extraordinary. We curate
                 bespoke journeys that blend the world’s most breathtaking
-                landscapes with effortless, real-time technology, our mission is
+                landscapes with effortless, real-time technology. Our mission is
                 to provide the modern explorer with an unmatched standard of
                 luxury and transparency, ensuring that your next great adventure
                 is as seamless as it is unforgettable.
@@ -205,7 +181,7 @@ function App() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none"
+                className="flex-1 px-6 py-4 rounded-xl border border-slate-700 focus:ring-2 focus:ring-orange-500 outline-none"
               />
               <button className="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition-all">
                 Join the Club
@@ -215,12 +191,9 @@ function App() {
         </section>
       </main>
 
-      <footer className="py-12 bg-primary border-t border-slate-200 text-center text-accent text-sm">
-        <p>
-          © 2026 PathBound Travel Agency. All prices verified via travel partner
-          APIs.
-        </p>
-      </footer>
+      {/* --- FOOTER --- */}
+
+      <Footer />
     </div>
   );
 }
