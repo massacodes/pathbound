@@ -7,6 +7,7 @@ import planeIcon from "./assets/plane-icon.svg";
 import commentIcon from "./assets/comment-icon.svg";
 import clickIcon from "./assets/click-icon.svg";
 import travelImage from "./assets/travel-image.jpg";
+import heroImage from "./assets/hero-bg.jpg";
 
 // components
 
@@ -64,13 +65,19 @@ function App() {
 
       <main>
         {/* --- HERO SECTION --- */}
-        <section className="pt-40 pb-24 px-6 bg-gray-200">
-          <div className="max-w-7xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-primary font-serif">
+        <section className="pt-40 pb-24 px-6 bg-gray-200 relative py-20 text-center overflow-hidden min-h-[60vh] flex items-center">
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${heroImage})`,
+            }}
+          />
+          <div className="max-w-7xl mx-auto text-center relative z-10">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white font-serif">
               Your next escape, <br />
-              <span className="text-primary">calculated to perfection.</span>
+              <span>calculated to perfection.</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-xl text-slate-600 mb-12">
+            <p className="max-w-2xl mx-auto text-xl text-white mb-12">
               We scan thousands of flights, hotels, and hidden gems in seconds
               to find the vacation that fits your soul and your budget.
             </p>
@@ -102,7 +109,7 @@ function App() {
                 />
               </div>
               <button
-                className="bg-ink hover:bg-[#1a1716] text-white px-10 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+                className="bg-primary hover:bg-[#043124] text-white px-10 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
                 onClick={handleSearch}
               >
                 <span>Find Deals</span>
@@ -152,14 +159,14 @@ function App() {
         {/* --- ABOUT SECTION --- */}
         <section
           id="destinations"
-          className="py-24 bg-accent text-ink overflow-hidden"
+          className="py-24 bg-primary text-ink overflow-hidden"
         >
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6 text-primary">
+              <h2 className="text-4xl font-bold mb-6 text-accent">
                 Explore more for less.
               </h2>
-              <p className="text-ink mb-8 text-lg">
+              <p className="text-white mb-8 text-lg">
                 At PathBound, we believe travel is more than just reaching a
                 destination it is a pursuit of the extraordinary, we curate
                 bespoke journeys that blend the world’s most breathtaking
@@ -208,7 +215,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="py-12 bg-primary border-t border-slate-200 text-center text-black text-sm">
+      <footer className="py-12 bg-primary border-t border-slate-200 text-center text-accent text-sm">
         <p>
           © 2026 PathBound Travel Agency. All prices verified via travel partner
           APIs.
