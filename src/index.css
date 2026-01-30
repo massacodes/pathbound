@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-primary: #064e3b; /* Deep Emerald */
+  --color-accent: #fde68a; /* Soft Gold/Amber */
+  --color-surface: #fafaf9; /* Warm White */
+  --color-ink: #292524; /* Warm Charcoal */
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-ink font-sans;
+  }
+}
