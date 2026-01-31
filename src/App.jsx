@@ -101,7 +101,7 @@ function App() {
               <h2 className="text-3xl font-bold mb-4 text-ink">
                 Why book with PathBound?
               </h2>
-              <p className="">
+              <p>
                 We use the world's most advanced travel APIs to save you time
                 and money.
               </p>
@@ -167,7 +167,7 @@ function App() {
         {/* --- CTA SECTION --- */}
         <section id="deals" className="py-24 text-center">
           <div className="max-w-2xl mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-6">
+            <h2 className="text-4xl text-ink font-bold mb-6">
               Get 10% off your first trip.
             </h2>
             <p className="text-slate-600 mb-10">
@@ -183,7 +183,7 @@ function App() {
                 placeholder="Enter your email"
                 className="flex-1 px-6 py-4 rounded-xl border border-slate-700 focus:ring-2 focus:ring-orange-500 outline-none"
               />
-              <button className="bg-primary text-accent px-8 py-4 rounded-xl font-bold hover:bg-[#053629] transition-all">
+              <button className="bg-ink text-white px-8 py-4 rounded-xl font-bold hover:bg-[#1b1918] transition-all">
                 Join the Club
               </button>
             </form>

@@ -7,7 +7,7 @@ function Footer() {
             <div className="text-2xl font-black tracking-tighter text-accent cursor-pointer">
               PathBound
             </div>
-            <p className="text-gray-400">
+            <p className="text-white">
               Transform your body, transform your life. Join us today!
             </p>
           </div>
@@ -17,38 +17,29 @@ function Footer() {
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a
-                    href="index.html"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="" className="hover:text-accent transition-colors">
                     Home
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="services.html"
-                    class="hover:text-white transition-colors"
-                  >
-                    Services
+                  <a href="" className="hover:text-accent transition-colors">
+                    Explore
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="contact.html"
-                    class="hover:text-white transition-colors"
-                  >
-                    Contact
+                  <a href="" className="hover:text-accent transition-colors">
+                    About Us
                   </a>
                 </li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Contact Info</h4>
-              <ul class="space-y-2 text-gray-400">
-                <li>123 Fitness Street</li>
+              <ul className="space-y-2 text-gray-400">
+                <li>123 Travel Street</li>
                 <li>City, State 12345</li>
                 <li>Phone: (555) 123-4567</li>
-                <li>Email: info@apexfitness.com</li>
+                <li>Email: info@pathbound.com</li>
               </ul>
             </div>
           </div>
