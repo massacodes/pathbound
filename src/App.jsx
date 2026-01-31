@@ -85,7 +85,7 @@ function App() {
                 />
               </div>
               <button
-                className="bg-primary hover:bg-[#043124] text-white px-10 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+                className="bg-primary hover:bg-[#043124] text-accent px-10 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
                 onClick={handleSearch}
               >
                 <span>Find Deals</span>
@@ -183,7 +183,7 @@ function App() {
                 placeholder="Enter your email"
                 className="flex-1 px-6 py-4 rounded-xl border border-slate-700 focus:ring-2 focus:ring-orange-500 outline-none"
               />
-              <button className="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition-all">
+              <button className="bg-primary text-accent px-8 py-4 rounded-xl font-bold hover:bg-[#053629] transition-all">
                 Join the Club
               </button>
             </form>

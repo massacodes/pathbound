@@ -7,22 +7,16 @@ function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-8 font-medium text-slate-600 items-center">
-          <a
-            href="#destinations"
-            className="hover:text-primary transition-colors"
-          >
-            Destinations
+          <a href="#home" className="hover:text-primary transition-colors">
+            Home
           </a>
-          <a
-            href="#how-it-works"
-            className="hover:text-primary transition-colors"
-          >
-            How it Works
+          <a href="#explore" className="hover:text-primary transition-colors">
+            Explore
           </a>
-          <a href="#deals" className="hover:text-primary transition-colors">
-            Today's Deals
+          <a href="#about" className="hover:text-primary transition-colors">
+            About Us
           </a>
-          <button className="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all shadow-lg shadow-orange-200">
+          <button className="bg-primary text-accent px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all shadow-lg shadow-orange-200">
             Book a Trip
           </button>
         </div>
