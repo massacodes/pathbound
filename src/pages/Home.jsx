@@ -11,28 +11,22 @@ import heroImage from "../assets/hero-bg.jpg";
 
 // components
 
-import Nabar from "../components/layout/Navbar.jsx";
-import Footer from "../components/layout/Footer.jsx";
 import FeatureCard from "../components/cards/FeatureCard.jsx";
 import { fetchFlights } from "../services/mockTravelApi.jsx";
+import SearchBar from "../components/ui/SearchBar.jsx";
 
 /**
  * PathBound App
  * A consumer-facing Online Travel Agency (OTA) landing page.
  */
 function App() {
-  const [query, setQuery] = useState(""); // UI State
-
-  const [flights, setFlights] = useState([]); // Data State
-  const [isLoading, setIsLoading] = useState(false); // Status State
+  const [query, setQuery] = useState("");
+  const [flights, setFlights] = useState([]);
 
   const handleSearch = async () => {
-    setIsLoading(true);
     const data = await fetchFlights(query);
     setFlights(data);
-    setIsLoading(false);
   };
-
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-orange-100">
       {/* --- MAIN CONTENT --- */}
@@ -58,36 +52,7 @@ function App() {
             {/* --- SEARCH BAR COMPONENT --- 
                 This simulates the interface where the API would be triggered.
             */}
-            <div className="max-w-4xl mx-auto bg-white p-4 rounded-2xl shadow-2xl border border-slate-400 flex flex-col md:flex-row gap-4">
-              <div className="flex-1 text-left px-4 py-2 border-r border-slate-300">
-                <label className="block text-xs font-bold uppercase text-ink mb-1">
-                  Destination
-                </label>
-                <input
-                  type="text"
-                  placeholder="Where to?"
-                  className="w-full outline-none text-lg font-medium"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-              </div>
-              <div className="flex-1 text-left px-4 py-2">
-                <label className="block text-xs font-bold uppercase text-ink mb-1">
-                  Travel Dates
-                </label>
-                <input
-                  type="text"
-                  placeholder="Add dates"
-                  className="w-full outline-none text-lg font-medium"
-                />
-              </div>
-              <button
-                className="bg-primary hover:bg-[#043124] text-accent px-10 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
-                onClick={handleSearch}
-              >
-                <span>Find Deals</span>
-              </button>
-            </div>
+            <SearchBar />
           </div>
         </section>
 
