@@ -63,7 +63,7 @@ function App() {
             */}
             <div className="max-w-4xl mx-auto bg-white p-4 rounded-2xl shadow-2xl border border-slate-400 flex flex-col md:flex-row gap-4">
               <div className="flex-1 text-left px-4 py-2 border-r border-slate-300">
-                <label className="block text-xs font-bold uppercase text-slate-400 mb-1">
+                <label className="block text-xs font-bold uppercase text-ink mb-1">
                   Destination
                 </label>
                 <input
@@ -75,7 +75,7 @@ function App() {
                 />
               </div>
               <div className="flex-1 text-left px-4 py-2">
-                <label className="block text-xs font-bold uppercase text-slate-400 mb-1">
+                <label className="block text-xs font-bold uppercase text-ink mb-1">
                   Travel Dates
                 </label>
                 <input

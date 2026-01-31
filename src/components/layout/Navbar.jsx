@@ -7,13 +7,13 @@ function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-8 font-medium text-slate-600 items-center">
-          <a href="#home" className="hover:text-primary transition-colors">
+          <a href="#home" className="hover:text-ink transition-colors">
             Home
           </a>
-          <a href="#explore" className="hover:text-primary transition-colors">
+          <a href="#explore" className="hover:text-ink transition-colors">
             Explore
           </a>
-          <a href="#about" className="hover:text-primary transition-colors">
+          <a href="#about" className="hover:text-ink transition-colors">
             About Us
           </a>
           <button className="bg-primary text-accent px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all shadow-lg shadow-orange-200">
