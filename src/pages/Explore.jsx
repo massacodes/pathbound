@@ -75,7 +75,7 @@ const Explore = () => {
             {flights.map((flight) => (
               <div
                 key={flight.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-md border border-emerald-900/5 group hover:shadow-xl transition-shadow cursor-pointer"
+                className="bg-white rounded-2xl overflow-hidden shadow-md border border-emerald-900/40 group hover:shadow-xl transition-shadow cursor-pointer"
               >
                 <div className="relative h-56 overflow-hidden">
                   <img
@@ -93,9 +93,6 @@ const Explore = () => {
                     <h3 className="text-xl font-bold text-ink">
                       {flight.destination}
                     </h3>
-                    <span className="text-xs font-bold text-primary uppercase tracking-tighter">
-                      {flight.airline}
-                    </span>
                   </div>
                   <p className="text-sm text-ink/60 mb-6 flex items-center gap-2">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
