@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
@@ -7,15 +9,15 @@ function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-8 font-medium text-slate-600 items-center">
-          <a href="#home" className="hover:text-ink transition-colors">
+          <Link to="/" className="hover:text-ink transition-colors">
             Home
-          </a>
-          <a href="#explore" className="hover:text-ink transition-colors">
+          </Link>
+          <Link to="/explore" className="hover:text-ink transition-colors">
             Explore
-          </a>
-          <a href="#about" className="hover:text-ink transition-colors">
+          </Link>
+          <Link to="/about" className="hover:text-ink transition-colors">
             About Us
-          </a>
+          </Link>
           <button className="bg-primary text-accent px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all shadow-lg shadow-orange-200">
             Book a Trip
           </button>
