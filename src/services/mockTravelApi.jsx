@@ -8,18 +8,27 @@ const createFakeFlight = () => ({
   price: faker.commerce.price({ min: 150, max: 1200, symbol: "$" }),
   duration: `${faker.number.int({ min: 2, max: 14 })}h ${faker.number.int({ min: 0, max: 59 })}m`,
   destination: faker.location.city(),
-  image: faker.image.urlLoremFlickr({
+  image: faker.image.url({
     category: "travel",
     width: 640,
     height: 480,
   }),
 });
 
-// The exported function your UI will call
+// The exported function to fetch flights based on a search query
 export const fetchFlights = async (query) => {
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  // Generate 6 random flights
-  return Array.from({ length: 6 }, createFakeFlight);
+  const flights = [Array.from({ length: 16 }, createFakeFlight)];
+
+  // If there is no search query, return all flights
+  if (!query) {
+    return flights;
+  } else {
+    // Simple filter by destination name
+    return flights.filter((flight) =>
+      flight.destination.toLowerCase().includes(query.toLowerCase()),
+    );
+  }
 };

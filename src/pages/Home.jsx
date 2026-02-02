@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../index.css";
 
 // assets
@@ -12,21 +13,17 @@ import heroImage from "../assets/hero-bg.jpg";
 // components
 
 import FeatureCard from "../components/cards/FeatureCard.jsx";
-import { fetchFlights } from "../services/mockTravelApi.jsx";
 import SearchBar from "../components/ui/SearchBar.jsx";
 
-/**
- * PathBound App
- * A consumer-facing Online Travel Agency (OTA) landing page.
- */
 function App() {
   const [query, setQuery] = useState("");
-  const [flights, setFlights] = useState([]);
+  const navigate = useNavigate();
 
-  const handleSearch = async () => {
-    const data = await fetchFlights(query);
-    setFlights(data);
+  const handleSearch = () => {
+    // You can even pass the search query to the next page via state
+    navigate("/explore", { state: { initialQuery: query } });
   };
+
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-orange-100">
       {/* --- MAIN CONTENT --- */}
@@ -49,10 +46,12 @@ function App() {
               to find the vacation that fits your soul and your budget.
             </p>
 
-            {/* --- SEARCH BAR COMPONENT --- 
-                This simulates the interface where the API would be triggered.
-            */}
-            <SearchBar />
+            {/* --- SEARCH BAR COMPONENT --- */}
+            <SearchBar
+              query={query}
+              setQuery={setQuery}
+              onSearch={handleSearch}
+            />
           </div>
         </section>
 

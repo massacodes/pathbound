@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { fetchFlights } from "../services/mockTravelApi";
+import { useLocation } from "react-router-dom";
+import SearchBar from "../components/ui/SearchBar";
 
 const Explore = () => {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState(
+    location.state?.initialQuery || "",
+  );
 
   // Fetch initial "featured" deals on load
   useEffect(() => {
-    loadDeals();
+    loadData();
   }, []);
 
-  const loadDeals = async () => {
+  const loadData = async () => {
     setLoading(true);
     const data = await fetchFlights(searchQuery);
     setFlights(data);
@@ -26,21 +31,11 @@ const Explore = () => {
           <h1 className="font-serif text-4xl text-accent mb-6">
             Find Your Next Adventure
           </h1>
-          <div className="flex flex-col md:flex-row gap-4 bg-white p-2 rounded-2xl shadow-xl">
-            <input
-              type="text"
-              placeholder="Search destinations (e.g. Kyoto, Amalfi Coast)..."
-              className="flex-1 p-4 rounded-xl focus:outline-none text-ink"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button
-              onClick={loadDeals}
-              className="bg-accent text-primary font-bold px-8 py-4 rounded-xl hover:brightness-105 transition"
-            >
-              Search Deals
-            </button>
-          </div>
+          <SearchBar
+            query={searchQuery}
+            setQuery={setSearchQuery}
+            onSearch={loadData}
+          />
         </div>
       </div>
 
