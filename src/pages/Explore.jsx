@@ -3,7 +3,7 @@ import { fetchFlights } from "../services/mockTravelApi";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../components/ui/SearchBar";
 
-const Explore = () => {
+function Explore() {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -55,7 +55,34 @@ const Explore = () => {
           </span>
         </div>
 
-        {loading ? (
+        {flights.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {flights.map((flight) => (
+              <FlightCard key={flight.id} data={flight} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
+            <div className="text-6xl mb-4">📍</div>
+            <h3 className="text-2xl font-serif text-primary mb-2">
+              No journeys found
+            </h3>
+            <p className="text-ink/60 mb-8">
+              We couldn't find any flights to "{searchQuery}".
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                loadData();
+              }}
+              className="text-primary font-bold underline decoration-accent decoration-2"
+            >
+              View all available destinations
+            </button>
+          </div>
+        )}
+
+        {loading && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Simple Loading Skeleton */}
             {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -65,45 +92,10 @@ const Explore = () => {
               ></div>
             ))}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {flights.map((flight) => (
-              <div
-                key={flight.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-md border border-emerald-900/40 group hover:shadow-xl transition-shadow cursor-pointer"
-              >
-                <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={flight.image}
-                    alt={flight.destination}
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                  />
-                  <div className="absolute top-4 right-4 bg-primary text-accent px-3 py-1 rounded-full text-sm font-bold">
-                    {flight.price}
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-ink">
-                      {flight.destination}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-ink/60 mb-6 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                    Direct Flight • {flight.duration}
-                  </p>
-                  <button className="w-full py-3 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition">
-                    View Availability
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
         )}
       </main>
     </div>
   );
-};
+}
 
 export default Explore;

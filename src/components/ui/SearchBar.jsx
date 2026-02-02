@@ -2,7 +2,7 @@ import React from "react";
 
 // This simulates the interface where the API is triggered.
 
-const SearchBar = ({ query, setQuery, onSearch }) => {
+function SearchBar({ query, setQuery, onSearch }) {
   return (
     <div className="max-w-4xl mx-auto text-center">
       <div className="flex flex-col md:flex-row gap-4 bg-white p-2 rounded-2xl shadow-xl">
@@ -24,6 +24,6 @@ const SearchBar = ({ query, setQuery, onSearch }) => {
       </div>
     </div>
   );
-};
+}
 
 export default SearchBar;

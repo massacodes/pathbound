@@ -5,18 +5,20 @@ import FlightDetail from "./pages/FlightDetail";
 import About from "./pages/About";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar /> {/* Stays on every page */}
+      <ScrollToTop />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/flight/:id" element={<FlightDetail />} />
         <Route path="/about" element={<About />} />
       </Routes>
-      <Footer /> {/* Stays on every page */}
+      <Footer />
     </BrowserRouter>
   );
 }
