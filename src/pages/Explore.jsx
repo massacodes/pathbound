@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { fetchFlights } from "../services/mockTravelApi";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../components/ui/SearchBar";
+import FlightCard from "../components/cards/FlightCard";
 
 function Explore() {
   const [flights, setFlights] = useState([]);
@@ -11,17 +12,21 @@ function Explore() {
     location.state?.initialQuery || "",
   );
 
-  // Fetch initial "featured" deals on load
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
+  const loadDeals = useCallback(async () => {
     setLoading(true);
-    const data = await fetchFlights(searchQuery);
-    setFlights(data);
-    setLoading(false);
-  };
+    try {
+      const data = await fetchFlights(searchQuery);
+      setFlights(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    loadDeals();
+  }, [loadDeals]);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -34,7 +39,7 @@ function Explore() {
           <SearchBar
             query={searchQuery}
             setQuery={setSearchQuery}
-            onSearch={loadData}
+            onSearch={loadDeals}
           />
         </div>
       </div>
@@ -73,7 +78,7 @@ function Explore() {
             <button
               onClick={() => {
                 setSearchQuery("");
-                loadData();
+                loadDeals();
               }}
               className="text-primary font-bold underline decoration-accent decoration-2"
             >
