@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function FlightCard(data) {
+function FlightCard(flights) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {data.map((flight) => (
+      {flights.map((flight) => (
         <div
           key={flight.id}
           className="bg-white rounded-2xl overflow-hidden shadow-md border border-emerald-900/40 group hover:shadow-xl transition-shadow cursor-pointer"
