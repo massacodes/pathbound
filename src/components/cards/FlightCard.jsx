@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function FlightCard(flights) {
+function FlightCard({ flights }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       {flights.map((flight) => (

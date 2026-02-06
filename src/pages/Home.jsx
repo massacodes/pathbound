@@ -26,7 +26,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-orange-100">
-      {/* --- MAIN CONTENT --- */}
       <main>
         {/* --- HERO SECTION --- */}
         <section className="pt-40 pb-24 px-6 bg-gray-200 relative py-20 text-center overflow-hidden min-h-[60vh] flex items-center">

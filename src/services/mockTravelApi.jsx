@@ -26,12 +26,14 @@ export const fetchFlights = async (query) => {
   if (!query) {
     return flights;
   } else {
-    // flight filtering logic: return flights where the destination includes the search query (case-insensitive)
-    return flights.filter((flight) => {
+    // filter flights based on destination matching the search query
+
+    const filteredFlights = flights.filter((flight) => {
       // Check if flight exists and has a destination string
       if (!flight || !flight.destination) return false;
 
       return flight.destination.toLowerCase().includes(query.toLowerCase());
     });
+    return filteredFlights || [];
   }
 };

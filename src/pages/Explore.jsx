@@ -8,6 +8,9 @@ function Explore() {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+
+  // Initialize search query from home page state if available, otherwise start with an empty string
+
   const [searchQuery, setSearchQuery] = useState(
     location.state?.initialQuery || "",
   );
@@ -27,6 +30,10 @@ function Explore() {
   useEffect(() => {
     loadDeals();
   }, [loadDeals]);
+
+  console.log("Type of flights:", typeof flights);
+  console.log("Is flights an array?:", Array.isArray(flights));
+  console.log("Current flights data:", flights);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -62,8 +69,8 @@ function Explore() {
 
         {flights.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {flights.map((flight) => (
-              <FlightCard key={flight.id} data={flight} />
+            {(flights || []).map((flight) => (
+              <FlightCard key={flight.id} flights={flight} />
             ))}
           </div>
         ) : (
