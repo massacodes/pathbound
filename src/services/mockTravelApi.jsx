@@ -10,6 +10,7 @@ const createFakeFlight = () => ({
   destination: faker.location.city(),
   image: faker.image.url({
     category: "travel",
+    destination: faker.location.city(),
     width: 640,
     height: 480,
   }),
@@ -20,7 +21,7 @@ export const fetchFlights = async (query) => {
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  const flights = [Array.from({ length: 16 }, createFakeFlight)];
+  const flights = Array.from({ length: 12 }, createFakeFlight);
 
   // If there is no search query, return all flights
   if (!query) {

@@ -31,9 +31,7 @@ function Explore() {
     loadDeals();
   }, [loadDeals]);
 
-  console.log("Type of flights:", typeof flights);
-  console.log("Is flights an array?:", Array.isArray(flights));
-  console.log("Current flights data:", flights);
+  console.log("Fetched flights:", flights);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -68,14 +66,14 @@ function Explore() {
         </div>
 
         {flights.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {(flights || []).map((flight) => (
-              <FlightCard key={flight.id} flights={flight} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {flights.map((flight) => (
+              <FlightCard key={flight.id} flight={flight} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
-            <div className="text-6xl mb-4">📍</div>
+          <div className="flex items-center flex-col justify-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
+            <img className="text-6xl mb-4" src="../src/assets/map.svg" alt="" />
             <h3 className="text-2xl font-serif text-primary mb-2">
               No journeys found
             </h3>
