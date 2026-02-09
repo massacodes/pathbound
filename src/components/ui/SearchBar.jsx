@@ -11,12 +11,12 @@ function SearchBar({ query, setQuery, onSearch }) {
           placeholder="Search destinations"
           className="flex-1 p-4 rounded-xl focus:outline-none text-ink"
           value={query}
-          onKeyDown={(e) => e.key === "Enter" && onSearch()}
+          onKeyDown={(e) => e.key === "Enter" && onSearch(query)}
           onChange={(e) => setQuery(e.target.value)}
         />
 
         <button
-          onClick={onSearch}
+          onClick={() => onSearch(query)}
           className="bg-accent text-primary font-bold px-8 py-4 rounded-xl hover:brightness-105 transition"
         >
           Search Deals

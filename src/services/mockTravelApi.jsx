@@ -8,6 +8,7 @@ const createFakeFlight = () => ({
   price: faker.commerce.price({ min: 150, max: 1200, symbol: "$" }),
   duration: `${faker.number.int({ min: 2, max: 14 })}h ${faker.number.int({ min: 0, max: 59 })}m`,
   destination: faker.location.city(),
+  country: faker.location.country(),
   image: faker.image.url({
     category: "travel",
     destination: faker.location.city(),
@@ -16,14 +17,14 @@ const createFakeFlight = () => ({
   }),
 });
 
+const flights = Array.from({ length: 12 }, createFakeFlight);
+
 // The exported function to fetch flights based on a search query
 export const fetchFlights = async (query) => {
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  const flights = Array.from({ length: 12 }, createFakeFlight);
-
-  // If there is no search query, return all flights
+  // If there is no search query, return initial flights
   if (!query) {
     return flights;
   } else {
@@ -35,6 +36,6 @@ export const fetchFlights = async (query) => {
 
       return flight.destination.toLowerCase().includes(query.toLowerCase());
     });
-    return filteredFlights || [];
+    return filteredFlights;
   }
 };

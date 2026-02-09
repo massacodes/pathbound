@@ -9,9 +9,7 @@ function Footer() {
             <div className="text-2xl font-black tracking-tighter text-accent cursor-pointer">
               PathBound
             </div>
-            <p className="text-white">
-              Transform your body, transform your life. Join us today!
-            </p>
+            <p className="text-white">© 2025 PathBound. All rights reserved.</p>
           </div>
 
           <div className="flex flex-row gap-16 md:gap-24">

@@ -21,6 +21,7 @@ function FlightCard({ flight }) {
           <h3 className="text-xl font-bold text-ink truncate">
             {flight.destination}
           </h3>
+          <p className="text-sm text-ink/60">{flight.country}</p>
           <p className="text-sm text-ink/60 flex items-center gap-2 mt-1">
             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
             Direct • {flight.duration}

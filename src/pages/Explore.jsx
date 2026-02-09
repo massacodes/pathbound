@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { fetchFlights } from "../services/mockTravelApi";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../components/ui/SearchBar";
 import FlightCard from "../components/cards/FlightCard";
+import mapIcon from "../assets/map.svg";
 
 function Explore() {
   const [flights, setFlights] = useState([]);
@@ -15,23 +16,23 @@ function Explore() {
     location.state?.initialQuery || "",
   );
 
-  const loadDeals = useCallback(async () => {
+  const loadDeals = useCallback(async (searchQuery) => {
     setLoading(true);
     try {
-      const data = await fetchFlights(searchQuery);
+      const data = await fetchFlights(searchQuery || "");
       setFlights(data);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
-  }, [searchQuery]);
+  }, []);
 
   useEffect(() => {
-    loadDeals();
-  }, [loadDeals]);
+    loadDeals(location.state?.initialQuery || "");
+  }, []);
 
-  console.log("Fetched flights:", flights);
+  console.log("flights", flights);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -73,7 +74,7 @@ function Explore() {
           </div>
         ) : (
           <div className="flex items-center flex-col justify-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
-            <img className="text-6xl mb-4" src="../src/assets/map.svg" alt="" />
+            <img className="text-6xl mb-4" src={mapIcon} alt="" />
             <h3 className="text-2xl font-serif text-primary mb-2">
               No journeys found
             </h3>
@@ -83,7 +84,7 @@ function Explore() {
             <button
               onClick={() => {
                 setSearchQuery("");
-                loadDeals();
+                loadDeals("");
               }}
               className="text-primary font-bold underline decoration-accent decoration-2"
             >
