@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { Faker, faker } from "@faker-js/faker";
 
 // Generate a single fake flight
 const createFakeFlight = () => ({
@@ -11,7 +11,7 @@ const createFakeFlight = () => ({
   country: faker.location.country(),
   image: faker.image.url({
     category: "travel",
-    destination: faker.location.city(),
+    destination: faker.location.country(),
     width: 640,
     height: 480,
   }),
@@ -28,13 +28,13 @@ export const fetchFlights = async (query) => {
   if (!query) {
     return flights;
   } else {
-    // filter flights based on destination matching the search query
+    // filter flights based on country matching the search query
 
     const filteredFlights = flights.filter((flight) => {
-      // Check if flight exists and has a destination string
-      if (!flight || !flight.destination) return false;
+      // Check if flight exists and has a country string
+      if (!flight || !flight.country) return false;
 
-      return flight.destination.toLowerCase().includes(query.toLowerCase());
+      return flight.country.toLowerCase().includes(query.toLowerCase());
     });
     return filteredFlights;
   }

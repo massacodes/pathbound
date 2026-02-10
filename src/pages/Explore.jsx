@@ -16,10 +16,11 @@ function Explore() {
     location.state?.initialQuery || "",
   );
 
-  const loadDeals = useCallback(async (searchQuery) => {
+  const loadDeals = useCallback(async (query) => {
+    setSearchQuery(query);
     setLoading(true);
     try {
-      const data = await fetchFlights(searchQuery || "");
+      const data = await fetchFlights(query || "");
       setFlights(data);
     } catch (error) {
       console.error(error);
@@ -30,9 +31,7 @@ function Explore() {
 
   useEffect(() => {
     loadDeals(location.state?.initialQuery || "");
-  }, []);
-
-  console.log("flights", flights);
+  }, [loadDeals]);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -66,7 +65,17 @@ function Explore() {
           </span>
         </div>
 
-        {flights.length > 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Simple Loading Skeleton */}
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div
+                key={n}
+                className="h-80 bg-gray-200 animate-pulse rounded-2xl"
+              ></div>
+            ))}
+          </div>
+        ) : flights.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {flights.map((flight) => (
               <FlightCard key={flight.id} flight={flight} />
@@ -90,18 +99,6 @@ function Explore() {
             >
               View all available destinations
             </button>
-          </div>
-        )}
-
-        {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Simple Loading Skeleton */}
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div
-                key={n}
-                className="h-80 bg-gray-200 animate-pulse rounded-2xl"
-              ></div>
-            ))}
           </div>
         )}
       </main>

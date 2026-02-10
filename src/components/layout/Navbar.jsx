@@ -18,7 +18,7 @@ function Navbar() {
           <Link to="/about" className="hover:text-ink transition-colors">
             About Us
           </Link>
-          <button className="bg-primary text-accent px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all shadow-lg shadow-orange-200">
+          <button className="bg-primary text-accent px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all">
             Book a Trip
           </button>
         </div>
