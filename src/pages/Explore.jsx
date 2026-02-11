@@ -20,7 +20,7 @@ function Explore() {
     setSearchQuery(query);
     setLoading(true);
     try {
-      const data = await fetchFlights(query || "");
+      const data = await fetchFlights(query);
       setFlights(data);
     } catch (error) {
       console.error(error);
@@ -65,42 +65,11 @@ function Explore() {
           </span>
         </div>
 
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Simple Loading Skeleton */}
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div
-                key={n}
-                className="h-80 bg-gray-200 animate-pulse rounded-2xl"
-              ></div>
-            ))}
-          </div>
-        ) : flights.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {flights.map((flight) => (
-              <FlightCard key={flight.id} flight={flight} />
-            ))}
-          </div>
-        ) : (
-          <div className="flex items-center flex-col justify-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
-            <img className="text-6xl mb-4" src={mapIcon} alt="" />
-            <h3 className="text-2xl font-serif text-primary mb-2">
-              No journeys found
-            </h3>
-            <p className="text-ink/60 mb-8">
-              We couldn't find any flights to "{searchQuery}".
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                loadDeals("");
-              }}
-              className="text-primary font-bold underline decoration-accent decoration-2"
-            >
-              View all available destinations
-            </button>
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {flights.map((flight) => (
+            <FlightCard key={flight.id} flight={flight} />
+          ))}
+        </div>
       </main>
     </div>
   );
