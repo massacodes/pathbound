@@ -1,21 +1,21 @@
 import { faker } from "@faker-js/faker";
 
-import { fakerFR } from "@faker-js/faker/locale/fr";
-import { fakerDE } from "@faker-js/faker/locale/de";
-import { fakerEN_GB } from "@faker-js/faker/locale/en_GB";
-import { fakerIT } from "@faker-js/faker/locale/it";
-import { fakerCA } from "@faker-js/faker/locale/en_CA";
-import { fakerAU } from "@faker-js/faker/locale/en_AU";
-import { fakerES } from "@faker-js/faker/locale/es";
-import { fakerRU } from "@faker-js/faker/locale/ru";
-import { fakerJP } from "@faker-js/faker/locale/ja";
-import { fakerUS } from "@faker-js/faker/locale/en_US";
+import { faker as fakerFR } from "@faker-js/faker/locale/fr";
+import { faker as fakerDE } from "@faker-js/faker/locale/de";
+import { faker as fakerIT } from "@faker-js/faker/locale/it";
+import { faker as fakerGB } from "@faker-js/faker/locale/en_GB";
+import { faker as fakerCA } from "@faker-js/faker/locale/en_CA";
+import { faker as fakerAU } from "@faker-js/faker/locale/en_AU";
+import { faker as fakerES } from "@faker-js/faker/locale/es";
+import { faker as fakerRU } from "@faker-js/faker/locale/ru";
+import { faker as fakerJP } from "@faker-js/faker/locale/ja";
+import { faker as fakerUS } from "@faker-js/faker/locale/en_US";
 // Map of country names to their corresponding faker locales
 
 const localeMap = {
   france: fakerFR,
   germany: fakerDE,
-  unitedKingdom: fakerEN_GB,
+  unitedKingdom: fakerGB,
   italy: fakerIT,
   unitedStates: fakerUS,
   canada: fakerCA,
@@ -54,6 +54,6 @@ export const fetchFlights = async (query) => {
     return Array.from({ length: 12 }, () => createFakeFlight());
   } else {
     // We'll create 6 results that all "match" the user's search
-    return Array.from({ length: 6 }, () => createFakeFlight(query));
+    return Array.from({ length: 12 }, () => createFakeFlight(query));
   }
 };
