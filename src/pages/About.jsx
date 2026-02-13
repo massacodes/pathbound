@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import bgImage from "../assets/about-bg.jpg";
+import checkmarkIcon from "../assets/icons/checkmark.svg";
+import mapIcon from "../assets/icons/map.svg";
+import envelopeIcon from "../assets/icons/envelope.svg";
 
 function About() {
   const [formData, setFormData] = useState({
@@ -48,12 +51,22 @@ function About() {
             architects is ready to help you plan your next escape.
           </p>
           <div className="space-y-4">
-            <p className="flex items-center text-ink/80 font-medium">
-              <span className="mr-3">📍</span> 123 Nomad Way, San Francisco, CA
-            </p>
-            <p className="flex items-center text-ink/80 font-medium">
-              <span className="mr-3">✉️</span> info@pathbound.com
-            </p>
+            <div className="flex flex-row">
+              <img src={mapIcon} alt="Map Icon" className="mr-2 w-6 h-6" />
+              <p className="flex items-center text-ink/80 font-medium">
+                123 Nomad Way, San Francisco, CA
+              </p>
+            </div>
+            <div className="flex flex-row">
+              <img
+                src={envelopeIcon}
+                alt="Message Icon"
+                className="mr-3 w-6 h-6"
+              />
+              <p className="flex items-center text-ink/80 font-medium">
+                info@pathbound.com
+              </p>
+            </div>
           </div>
         </div>
 
@@ -61,7 +74,11 @@ function About() {
         <div className="bg-primary p-8 rounded-3xl shadow-xl border border-slate-100">
           {submitted ? (
             <div className="text-center py-12">
-              <div className="text-4xl mb-4">✈️</div>
+              <img
+                src={checkmarkIcon}
+                alt="Checkmark"
+                className="mx-auto mb-6 w-12 h-12"
+              />
               <h3 className="text-2xl font-bold text-accent">Message Sent!</h3>
               <p className="text-white">
                 We'll get back to you within 24 hours.

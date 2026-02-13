@@ -4,9 +4,9 @@ import "../index.css";
 
 // assets
 
-import planeIcon from "../assets/plane-icon.svg";
-import commentIcon from "../assets/comment-icon.svg";
-import clickIcon from "../assets/click-icon.svg";
+import planeIcon from "../assets/icons/plane-icon.svg";
+import commentIcon from "../assets/icons/comment-icon.svg";
+import clickIcon from "../assets/icons/click-icon.svg";
 import travelImage from "../assets/travel-image.jpg";
 import heroImage from "../assets/hero-bg.jpg";
 

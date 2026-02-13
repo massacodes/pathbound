@@ -3,7 +3,7 @@ import { fetchFlights } from "../services/mockTravelApi";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../components/ui/SearchBar";
 import FlightCard from "../components/cards/FlightCard";
-import mapIcon from "../assets/map.svg";
+import mapIcon from "../assets/icons/map.svg";
 
 function Explore() {
   const [flights, setFlights] = useState([]);
