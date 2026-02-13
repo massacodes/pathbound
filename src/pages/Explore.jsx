@@ -65,11 +65,31 @@ function Explore() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {flights.map((flight) => (
-            <FlightCard key={flight.id} flight={flight} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div
+                key={n}
+                className="h-80 bg-gray-200 animate-pulse rounded-2xl"
+              />
+            ))}
+          </div>
+        ) : flights.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {flights.map((flight) => (
+              <FlightCard key={flight.id} flight={flight} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <img
+              src={mapIcon}
+              alt="No results found"
+              className="mx-auto mb-5 size-9"
+            />
+            <p className="text-center text-xl text-ink/60">No results found.</p>
+          </div>
+        )}
       </main>
     </div>
   );

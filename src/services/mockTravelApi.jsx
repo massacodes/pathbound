@@ -25,16 +25,23 @@ const localeMap = {
   japan: fakerJP,
 };
 
+// Normalized lookup map to handle queries like "United Kingdom" or "unitedkingdom"
+const normalize = (s) =>
+  String(s || "")
+    .toLowerCase()
+    .replace(/[^a-z]/g, "");
+const normalizedLocaleMap = Object.fromEntries(
+  Object.entries(localeMap).map(([k, v]) => [normalize(k), v]),
+);
+
 // This function creates a fake flight object, optionally forcing the country to match the search query
 
 const createFakeFlight = (forcedCountry = null) => {
-  // when the user enters a search query, we'll generate flights that match it by using the corresponding locale. Otherwise, we generate random country and locale.
-
-  const countryKey = forcedCountry?.toLowerCase();
-  const countryWorker = localeMap[countryKey] || faker;
+  // Use normalized lookup so queries like "United Kingdom" match `unitedKingdom`
+  const normalized = normalize(forcedCountry);
+  const countryWorker = normalizedLocaleMap[normalized] || faker;
   const countryName = forcedCountry || faker.location.country();
 
-  // Generate a flight object with realistic data
   return {
     id: faker.string.uuid(),
     airline: faker.company.name(),
@@ -46,14 +53,57 @@ const createFakeFlight = (forcedCountry = null) => {
   };
 };
 
+// determine whether a user query looks like a country name
+const looksLikeCountry = (query) => {
+  if (!query) return false;
+  const raw = String(query).trim();
+  const normalized = normalize(raw);
+
+  // If it exists in locale map, it's valid
+  if (normalized in normalizedLocaleMap) return true;
+
+  // letters/spaces only, No numbers or special chars.
+  const lower = raw.toLowerCase();
+  if (!/^[a-z ]+$/.test(lower)) return false;
+
+  // Reject extremely short/long inputs
+  if (normalized.length < 3 || normalized.length > 60) return false;
+
+  const words = raw.split(/\s+/).filter(Boolean);
+  if (words.length > 4) return false;
+
+  // Reject obvious gibberish: long repeated characters
+  if (/(.)\1{4,}/.test(lower)) return false;
+
+  // Reject very long consonant clusters
+  if (/[bcdfghjklmnpqrstvwxyz]{6,}/.test(lower)) return false;
+
+  // Ensure a reasonable vowel ratio (guards against random consonant-heavy strings)
+  const lettersOnly = normalized.replace(/ /g, "");
+  const vowelCount = (lettersOnly.match(/[aeiouy]/g) || []).length;
+  const vowelRatio = lettersOnly.length ? vowelCount / lettersOnly.length : 0;
+  if (vowelRatio < 0.18) return false;
+
+  // Ensure each word is a reasonable length
+  for (const w of words) {
+    if (w.length < 2) return false;
+    if (w.length > 25) return false;
+  }
+
+  return true;
+};
+
 export const fetchFlights = async (query) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
-
   if (!query) {
-    // Return 12 random flights if theres no search
+    // Return 12 random flights if there's no search
     return Array.from({ length: 12 }, () => createFakeFlight());
-  } else {
-    // We'll create 6 results that all "match" the user's search
-    return Array.from({ length: 12 }, () => createFakeFlight(query));
   }
+
+  if (!looksLikeCountry(query)) {
+    return [];
+  }
+
+  // Generate results that match the user's country query
+  return Array.from({ length: 12 }, () => createFakeFlight(query));
 };
