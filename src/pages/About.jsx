@@ -20,11 +20,13 @@ function About() {
   };
 
   return (
-    <div className="min-h-screen bg-surface pt-24">
+    <div className="min-h-screen bg-surface pt-20">
       {/* Hero Section */}
       <section
-        className=" px-6 py-16 text-center bg-primary"
+        className="px-6 py-16 text-center bg-primary"
         style={{
+          minHeight: "60vh",
+          paddingTop: "6rem",
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -41,7 +43,7 @@ function About() {
       </section>
 
       {/* Contact Section */}
-      <section className="max-w-5xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16">
+      <section className="max-w-5xl mx-auto px-6 py-32 grid grid-cols-1 md:grid-cols-2 gap-16">
         <div>
           <h2 className="font-serif text-3xl text-primary mb-4">
             Get in Touch
