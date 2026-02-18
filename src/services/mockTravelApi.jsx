@@ -10,6 +10,10 @@ import { faker as fakerES } from "@faker-js/faker/locale/es";
 import { faker as fakerRU } from "@faker-js/faker/locale/ru";
 import { faker as fakerJP } from "@faker-js/faker/locale/ja";
 import { faker as fakerUS } from "@faker-js/faker/locale/en_US";
+import { faker as fakerKO } from "@faker-js/faker/locale/ko";
+import { faker as fakerPT_BR } from "@faker-js/faker/locale/pt_BR";
+import { faker as fakerTR } from "@faker-js/faker/locale/tr";
+import { faker as fakerCN } from "@faker-js/faker/locale/zh_CN";
 // Map of country names to their corresponding faker locales
 
 const localeMap = {
@@ -23,6 +27,10 @@ const localeMap = {
   spain: fakerES,
   russia: fakerRU,
   japan: fakerJP,
+  korea: fakerKO,
+  brazil: fakerPT_BR,
+  turkey: fakerTR,
+  china: fakerCN,
 };
 
 // Normalized lookup map to handle queries like "United Kingdom" or "unitedkingdom"
@@ -34,9 +42,9 @@ const normalizedLocaleMap = Object.fromEntries(
   Object.entries(localeMap).map(([k, v]) => [normalize(k), v]),
 );
 
-// This function creates a fake flight object, optionally forcing the country to match the search query
+// This function creates a fake Tour object, optionally forcing the country to match the search query
 
-const createFakeFlight = (forcedCountry = null) => {
+const createFakeTour = (forcedCountry = null) => {
   // Use normalized lookup so queries like "United Kingdom" match `unitedKingdom`
   const normalized = normalize(forcedCountry);
   const countryWorker = normalizedLocaleMap[normalized] || faker;
@@ -44,7 +52,6 @@ const createFakeFlight = (forcedCountry = null) => {
 
   return {
     id: faker.string.uuid(),
-    airline: faker.company.name(),
     price: faker.commerce.price({ min: 150, max: 1200, symbol: "$" }),
     duration: `${faker.number.int({ min: 2, max: 14 })}h ${faker.number.int({ min: 0, max: 59 })}m`,
     destination: countryWorker.location.city(),
@@ -93,11 +100,11 @@ const looksLikeCountry = (query) => {
   return true;
 };
 
-export const fetchFlights = async (query) => {
+export const fetchTours = async (query) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   if (!query) {
-    // Return 12 random flights if there's no search
-    return Array.from({ length: 12 }, () => createFakeFlight());
+    // Return 12 random Tours if there's no search
+    return Array.from({ length: 12 }, () => createFakeTour());
   }
 
   if (!looksLikeCountry(query)) {
@@ -105,5 +112,5 @@ export const fetchFlights = async (query) => {
   }
 
   // Generate results that match the user's country query
-  return Array.from({ length: 12 }, () => createFakeFlight(query));
+  return Array.from({ length: 12 }, () => createFakeTour(query));
 };

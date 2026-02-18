@@ -12,8 +12,8 @@ function Navbar() {
           <Link to="/" className="hover:text-ink transition-colors">
             Home
           </Link>
-          <Link to="/explore" className="hover:text-ink transition-colors">
-            Explore
+          <Link to="/destinations" className="hover:text-ink transition-colors">
+            Destinations
           </Link>
           <Link to="/about" className="hover:text-ink transition-colors">
             About Us

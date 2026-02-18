@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { fetchFlights } from "../services/mockTravelApi";
+import { fetchTours } from "../services/mockTravelApi";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../components/ui/SearchBar";
-import FlightCard from "../components/cards/FlightCard";
+import TourCard from "../components/cards/TourCard";
 import mapIcon from "../assets/icons/map.svg";
 
-function Explore() {
-  const [flights, setFlights] = useState([]);
+function Destinations() {
+  const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
@@ -20,8 +20,8 @@ function Explore() {
     setSearchQuery(query);
     setLoading(true);
     try {
-      const data = await fetchFlights(query);
-      setFlights(data);
+      const data = await fetchTours(query);
+      setTours(data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -32,6 +32,8 @@ function Explore() {
   useEffect(() => {
     loadDeals(location.state?.initialQuery || "");
   }, [loadDeals]);
+
+  console.log("Destinations Tours:", tours);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -61,7 +63,7 @@ function Explore() {
             </p>
           </div>
           <span className="text-sm font-medium text-ink/40">
-            {flights.length} results found
+            {tours.length} results found
           </span>
         </div>
 
@@ -74,10 +76,10 @@ function Explore() {
               />
             ))}
           </div>
-        ) : flights.length > 0 ? (
+        ) : tours.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {flights.map((flight) => (
-              <FlightCard key={flight.id} flight={flight} />
+            {tours.map((tour) => (
+              <TourCard key={tour.id} tour={tour} />
             ))}
           </div>
         ) : (
@@ -95,4 +97,4 @@ function Explore() {
   );
 }
 
-export default Explore;
+export default Destinations;

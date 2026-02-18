@@ -20,8 +20,7 @@ function App() {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    // You can even pass the search query to the next page via state
-    navigate("/explore", { state: { initialQuery: query } });
+    navigate("/destinations", { state: { initialQuery: query } });
   };
 
   return (
@@ -55,7 +54,7 @@ function App() {
         </section>
 
         {/* --- VALUE PROPS (SERVICES) --- */}
-        <section id="how-it-works" className="py-24 px-6 bg-white">
+        <section id="services" className="py-24 px-6 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-ink">
@@ -94,7 +93,7 @@ function App() {
 
         {/* --- ABOUT SECTION --- */}
         <section
-          id="destinations"
+          id="about-us"
           className="py-24 bg-primary text-ink overflow-hidden"
         >
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
@@ -125,7 +124,7 @@ function App() {
         </section>
 
         {/* --- CTA SECTION --- */}
-        <section id="deals" className="py-24 text-center">
+        <section id="cta" className="py-24 text-center">
           <div className="max-w-2xl mx-auto px-6">
             <h2 className="text-4xl text-ink font-bold mb-6">
               Get 10% off your first trip.
