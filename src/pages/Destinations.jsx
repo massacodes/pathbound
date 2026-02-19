@@ -5,35 +5,35 @@ import SearchBar from "../components/ui/SearchBar";
 import TourCard from "../components/cards/TourCard";
 import mapIcon from "../assets/icons/map.svg";
 
-function Destinations() {
-  const [tours, setTours] = useState([]);
+function Destinations({ tours, setTours }) {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   // Initialize search query from home page state if available, otherwise start with an empty string
-
   const [searchQuery, setSearchQuery] = useState(
     location.state?.initialQuery || "",
   );
 
-  const loadDeals = useCallback(async (query) => {
-    setSearchQuery(query);
-    setLoading(true);
-    try {
-      const data = await fetchTours(query);
-      setTours(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const loadDeals = useCallback(
+    async (query) => {
+      setSearchQuery(query);
+      setLoading(true);
+      try {
+        const data = await fetchTours(query);
+        setTours(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setTours],
+  );
 
   useEffect(() => {
     loadDeals(location.state?.initialQuery || "");
-  }, [loadDeals]);
-
-  console.log("Destinations Tours:", tours);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="min-h-screen bg-surface">

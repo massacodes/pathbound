@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchTours } from "../services/mockTravelApi";
 
-const TourDetail = () => {
-  const [tours, setTours] = useState([]);
+const TourDetail = ({ tours, setTours }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAccordion = (index) => {
@@ -13,21 +12,22 @@ const TourDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // Optionally, fetch tours if not already loaded
   useEffect(() => {
-    const loadTours = async () => {
-      try {
-        const data = await fetchTours();
-        setTours(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loadTours();
-  }, []);
+    if (!tours || tours.length === 0) {
+      const loadTours = async () => {
+        try {
+          const data = await fetchTours();
+          setTours(data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      loadTours();
+    }
+  }, [tours, setTours]);
 
   const tour = tours.find((t) => t.id === id) || null;
-
-  console.log("Selected Tour:", tours);
 
   if (!tour) {
     return (
@@ -210,8 +210,8 @@ const TourDetail = () => {
               <span className="text-accent text-sm font-bold uppercase">
                 Total Price
               </span>
-              <h2 className="text-4xl font-serif">
-                ${tour.price}{" "}
+              <h2 className="text-4xl font-sans">
+                {tour.price}{" "}
                 <span className="text-lg font-sans text-white/60">/person</span>
               </h2>
             </div>

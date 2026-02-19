@@ -17,8 +17,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/destinations" element={<Destinations />} />
-        <Route path="/tour/:id" element={<TourDetail />} />
+        <Route
+          path="/destinations"
+          element={<Destinations tours={tours} setTours={setTours} />}
+        />
+        <Route
+          path="/tour/:id"
+          element={<TourDetail tours={tours} setTours={setTours} />}
+        />
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
