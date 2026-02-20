@@ -50,7 +50,7 @@ const TourDetail = ({ tours, setTours }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
         {/* LEFT COLUMN (2/3) - Story & Details */}
         <div className="lg:col-span-2 space-y-10">
-          <div className="rounded-[2.5rem] overflow-hidden shadow-2xl h-112.5">
+          <div className="rounded-3xl overflow-hidden shadow-2xl h-112.5">
             <img
               src={tour.image}
               alt={tour.destination}

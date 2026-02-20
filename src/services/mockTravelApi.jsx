@@ -45,18 +45,30 @@ const normalizedLocaleMap = Object.fromEntries(
 // This function creates a fake Tour object, optionally forcing the country to match the search query
 
 const createFakeTour = (forcedCountry = null) => {
-  // Use normalized lookup so queries like "United Kingdom" match `unitedKingdom`
   const normalized = normalize(forcedCountry);
   const countryWorker = normalizedLocaleMap[normalized] || faker;
   const countryName = forcedCountry || faker.location.country();
 
   return {
     id: faker.string.uuid(),
-    price: faker.commerce.price({ min: 150, max: 1200, symbol: "$" }),
-    duration: `${faker.number.int({ min: 2, max: 14 })}h ${faker.number.int({ min: 0, max: 59 })}m`,
-    destination: countryWorker.location.city(),
+    title: `${faker.location.city()} & The ${faker.commerce.productAdjective()} Coast`,
     country: countryName,
-    image: `https://picsum.photos/seed/${faker.string.uuid()}/640/480`,
+    destination: `${countryWorker.location.city()}`,
+    duration: faker.number.int({ min: 5, max: 14 }),
+    operator: "Expat Explore Travel",
+    price: faker.commerce.price(800, 4500),
+    rating: faker.number.float({ min: 4.2, max: 5.0, precision: 0.1 }),
+    reviews: faker.number.int({ min: 10, max: 500 }),
+    image: `https://loremflickr.com/800/600/landscape,?random=${faker.string.uuid()}`,
+    tourCode: faker.string.numeric(3).toUpperCase(),
+    groupSize: `${faker.number.int({ min: 10, max: 20 })} - ${faker.number.int({ min: 30, max: 50 })}`,
+    physicalRating: faker.helpers.arrayElement(["Low", "Medium", "High"]),
+    interests: faker.helpers.arrayElements(
+      ["Culture", "History", "Nature", "Food"],
+      2,
+    ),
+    // Brief summary for the card
+    excerpt: `Discover the hidden gems of ${faker.location.country()} on this fully-guided journey.`,
   };
 };
 
