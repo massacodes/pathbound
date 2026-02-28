@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchTours } from "../services/mockTravelApi";
+import { fetchTourById, fetchTours } from "../services/mockTravelApi";
 
 const TourDetail = ({ tours, setTours }) => {
+  const [fallbackTour, setFallbackTour] = useState(null);
   const [openIndex, setOpenIndex] = useState(null);
-
-  const toggleAccordion = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,7 +24,23 @@ const TourDetail = ({ tours, setTours }) => {
     }
   }, [tours, setTours]);
 
-  const tour = tours.find((t) => t.id === id) || null;
+  const matchedFallbackTour = fallbackTour?.id === id ? fallbackTour : null;
+  const tour = tours.find((t) => t.id === id) || matchedFallbackTour;
+
+  useEffect(() => {
+    if (tour) return;
+
+    const loadTourById = async () => {
+      try {
+        const data = await fetchTourById(id);
+        setFallbackTour(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadTourById();
+  }, [id, tour]);
 
   if (!tour) {
     return (
@@ -100,9 +113,7 @@ const TourDetail = ({ tours, setTours }) => {
               <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">
                 Physical Rating
               </h4>
-              <p className="text-lg text-primary font-medium text-green-600">
-                Low
-              </p>
+              <p className="text-lg text-primary font-medium">Low</p>
             </div>
             <div>
               <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">

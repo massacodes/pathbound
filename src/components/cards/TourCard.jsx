@@ -10,6 +10,7 @@ function TourCard({ tour }) {
           src={tour.image}
           alt={tour.destination}
           className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          loading="lazy"
         />
         <div className="absolute top-4 right-4 bg-primary text-accent px-3 py-1 rounded-full text-sm font-bold">
           {tour.price}

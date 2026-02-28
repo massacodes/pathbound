@@ -14,6 +14,14 @@ function Destinations({ tours, setTours }) {
     location.state?.initialQuery || "",
   );
 
+  useEffect(() => {
+    const savedTours = localStorage.getItem("pathbound_tours");
+
+    if (savedTours) {
+      setTours(JSON.parse(savedTours));
+    }
+  }, [setTours]);
+
   const loadDeals = useCallback(
     async (query) => {
       setSearchQuery(query);
@@ -26,8 +34,9 @@ function Destinations({ tours, setTours }) {
       } finally {
         setLoading(false);
       }
+      localStorage.setItem("pathbound_tours", JSON.stringify(tours));
     },
-    [setTours],
+    [setTours, tours],
   );
 
   useEffect(() => {
@@ -83,7 +92,7 @@ function Destinations({ tours, setTours }) {
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
+          <div className="text-center py-28">
             <img
               src={mapIcon}
               alt="No results found"

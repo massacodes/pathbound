@@ -48,6 +48,7 @@ const createFakeTour = (forcedCountry = null) => {
   const normalized = normalize(forcedCountry);
   const countryWorker = normalizedLocaleMap[normalized] || faker;
   const countryName = forcedCountry || faker.location.country();
+  const lockId = faker.number.int({ min: 1, max: 1000 });
 
   return {
     id: faker.string.uuid(),
@@ -56,10 +57,10 @@ const createFakeTour = (forcedCountry = null) => {
     destination: `${countryWorker.location.city()}`,
     duration: faker.number.int({ min: 5, max: 14 }),
     operator: "Expat Explore Travel",
-    price: faker.commerce.price(800, 4500),
+    price: `$${faker.commerce.price(800, 4500)}`,
     rating: faker.number.float({ min: 4.2, max: 5.0, precision: 0.1 }),
     reviews: faker.number.int({ min: 10, max: 500 }),
-    image: `https://loremflickr.com/800/600/landscape,?random=${faker.string.uuid()}`,
+    image: `https://picsum.photos/seed/${lockId}/800/600`,
     tourCode: faker.string.numeric(3).toUpperCase(),
     groupSize: `${faker.number.int({ min: 10, max: 20 })} - ${faker.number.int({ min: 30, max: 50 })}`,
     physicalRating: faker.helpers.arrayElement(["Low", "Medium", "High"]),
@@ -116,7 +117,7 @@ export const fetchTours = async (query) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   if (!query) {
     // Return 12 random Tours if there's no search
-    return Array.from({ length: 12 }, () => createFakeTour());
+    return Array.from({ length: 9 }, () => createFakeTour());
   }
 
   if (!looksLikeCountry(query)) {
@@ -124,5 +125,15 @@ export const fetchTours = async (query) => {
   }
 
   // Generate results that match the user's country query
-  return Array.from({ length: 12 }, () => createFakeTour(query));
+  return Array.from({ length: 9 }, () => createFakeTour(query));
+};
+
+export const fetchTourById = async (id) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  const tour = createFakeTour();
+  return {
+    ...tour,
+    id,
+    image: `https://picsum.photos/seed/${id}/640/480`,
+  };
 };
