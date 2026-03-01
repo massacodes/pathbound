@@ -7,7 +7,7 @@ import React from "react";
 
 function FeatureCard({ title, desc, iconSrc }) {
   return (
-    <div className="flex flex-col items-center text-center p-8 group border-2 border-primary rounded-2xl">
+    <div className="flex flex-col items-center text-center p-8 group border-2 border-ink rounded-2xl">
       <img
         src={iconSrc}
         alt=""

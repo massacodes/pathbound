@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../index.css";
 
 // assets
-import planeIcon from "../assets/icons/plane-icon.svg";
-import commentIcon from "../assets/icons/comment-icon.svg";
-import clickIcon from "../assets/icons/click-icon.svg";
+import verifiedIcon from "../assets/icons/verified.svg";
+import commentIcon from "../assets/icons/comment.svg";
+import clickIcon from "../assets/icons/click.svg";
 import travelImage from "../assets/travel-image.jpg";
 import heroImage from "../assets/hero-bg.jpg";
 
@@ -50,11 +50,95 @@ function App() {
           </div>
         </section>
 
-        {/* --- VALUE PROPS (SERVICES) --- */}
+        {/* --- BEST SELLERS SECTION --- */}
+        <section className="py-24 px-6 bg-slate-100 border-y border-slate-100">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex justify-between items-end mb-12">
+              <div>
+                <h2 className="text-3xl font-bold text-ink font-serif mb-2">
+                  Best Sellers
+                </h2>
+                <p className="text-slate-600">
+                  The world's most coveted itineraries, curated for you.
+                </p>
+              </div>
+              <button
+                onClick={() => navigate("/destinations")}
+                className="text-ink font-bold border-b-2 border-ink pb-1 hover:text-accent hover:border-accent transition-all hidden sm:block"
+              >
+                View all destinations
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  name: "Amalfi Coast",
+                  img: "https://picsum.photos/seed/italy/600/800",
+                  price: "2,400",
+                  loc: "Italy",
+                },
+                {
+                  name: "Kyoto Gardens",
+                  img: "https://picsum.photos/seed/japan/600/800",
+                  price: "3,100",
+                  loc: "Japan",
+                },
+                {
+                  name: "Swiss Alps",
+                  img: "https://picsum.photos/seed/swiss/600/800",
+                  price: "1,950",
+                  loc: "Switzerland",
+                },
+                {
+                  name: "Greek Isles",
+                  img: "https://picsum.photos/seed/greece/600/800",
+                  price: "2,800",
+                  loc: "Greece",
+                },
+              ].map((tour, index) => (
+                <div
+                  key={index}
+                  className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer shadow-lg"
+                >
+                  {/* Background Image */}
+                  <img
+                    src={tour.img}
+                    alt={tour.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+
+                  {/* Dark Gradient Overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
+
+                  {/* Top Badge */}
+                  <div className="absolute top-4 left-4 flex items-center justify-center bg-primary px-4 py-3 rounded-full shadow-sm">
+                    <span className="text-accent text-[10px] font-extrabold uppercase tracking-[0.15em] leading-none">
+                      Best Seller
+                    </span>
+                  </div>
+
+                  {/* Tour Details */}
+                  <div className="absolute bottom-0 left-0 p-6 w-full translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-white/70 text-xs uppercase tracking-widest mb-1">
+                      {tour.loc}
+                    </p>
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      {tour.name}
+                    </h3>
+                    <p className="text-white font-medium">From ${tour.price}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* --- SERVICES SECTION --- */}
         <section id="services" className="py-24 px-6 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-ink">
+              <h2 className="text-3xl font-bold mb-4 text-primary">
                 Why travel with PathBound?
               </h2>
               <p className="text-slate-600">
@@ -68,7 +152,7 @@ function App() {
               <FeatureCard
                 title="Expert Curation"
                 desc="Every itinerary is vetted by travel experts to ensure you see the best of every destination."
-                iconSrc={planeIcon}
+                iconSrc={verifiedIcon}
               />
 
               {/* Verified Travelers (Message Bubbles) */}
