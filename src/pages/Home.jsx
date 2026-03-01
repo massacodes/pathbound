@@ -64,7 +64,7 @@ function App() {
               </div>
               <button
                 onClick={() => navigate("/destinations")}
-                className="text-ink font-bold border-b-2 border-ink pb-1 hover:text-accent hover:border-accent transition-all hidden sm:block"
+                className="text-ink font-bold border-b-2 border-ink pb-1 hover:text-primary/85 hover:border-primary/85 transition-all hidden sm:block"
               >
                 View all destinations
               </button>

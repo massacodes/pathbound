@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -9,15 +10,42 @@ function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-8 font-medium text-slate-600 items-center">
-          <Link to="/" className="hover:text-ink transition-colors">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `text-base font-semibold transition-colors duration-200 ${
+                isActive
+                  ? "text-primary font-bold border-b-2 border-primary pb-0.5"
+                  : "hover:text-ink transition-colors"
+              }`
+            }
+          >
             Home
-          </Link>
-          <Link to="/destinations" className="hover:text-ink transition-colors">
+          </NavLink>
+          <NavLink
+            to="/destinations"
+            className={({ isActive }) =>
+              `text-base font-semibold transition-colors duration-200 ${
+                isActive
+                  ? "text-primary font-bold border-b-2 border-primary pb-0.5"
+                  : "hover:text-ink transition-colors"
+              }`
+            }
+          >
             Destinations
-          </Link>
-          <Link to="/about" className="hover:text-ink transition-colors">
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `text-base font-semibold transition-colors duration-200 ${
+                isActive
+                  ? "text-primary font-bold border-b-2 border-primary pb-0.5"
+                  : "hover:text-ink transition-colors"
+              }`
+            }
+          >
             About Us
-          </Link>
+          </NavLink>
           <button className="bg-primary text-accent px-6 py-2.5 rounded-full hover:bg-[#053629] transition-all">
             Book a Trip
           </button>
