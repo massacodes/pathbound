@@ -216,7 +216,7 @@ const TourDetail = ({ tours, setTours }) => {
 
         {/* RIGHT COLUMN (1/3) - Sticky Booking Card */}
         <div className="lg:sticky lg:top-32">
-          <div className="bg-primary text-white p-8 rounded-[2rem] shadow-xl">
+          <div className="bg-primary text-white p-8 rounded-4xl shadow-xl">
             <div className="mb-6">
               <span className="text-accent text-sm font-bold uppercase">
                 Total Price

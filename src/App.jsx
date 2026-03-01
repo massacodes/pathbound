@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import Destinations from "./pages/Destinations";
-import TourDetail from "./tour/tourDetail";
+import TourDetail from "./pages/tourDetail";
 import About from "./pages/About";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
