@@ -32,17 +32,17 @@ function Navbar() {
     };
   }, [isMenuOpen]);
 
-  //
+  // Class names for active and inactive links
 
   const linkClassName = ({ isActive }) =>
-    `text-base font-semibold transition-colors duration-200 ${
+    `text-base transition-colors duration-200 ${
       isActive
-        ? "text-primary font-bold border-b-2 border-primary pb-0.5"
+        ? "text-primary border-b-2 border-primary pb-0.5"
         : "hover:text-ink"
     }`;
 
   const mobileLinkClassName = ({ isActive }) =>
-    `rounded-xl px-4 py-3 text-base font-semibold transition-colors duration-200 ${
+    `rounded-xl px-4 py-3 text-base transition-colors duration-200 ${
       isActive
         ? "text-accent bg-primary font-bold"
         : "text-ink hover:bg-primary/10 hover:text-primary"
@@ -54,7 +54,6 @@ function Navbar() {
         <div className="cursor-pointer text-2xl font-black tracking-tighter text-primary">
           PathBound
         </div>
-
         <div className="hidden items-center gap-8 font-medium text-slate-600 md:flex">
           {navigation.map((item) => (
             <NavLink key={item.to} to={item.to} className={linkClassName}>
@@ -65,6 +64,8 @@ function Navbar() {
             Book a Trip
           </button>
         </div>
+
+        {/* Mobile menu button */}
 
         <button
           type="button"

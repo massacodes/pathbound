@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Star } from "lucide-react";
 
 function TourCard({ tour }) {
   if (!tour) return null;
@@ -12,29 +13,34 @@ function TourCard({ tour }) {
           className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
           loading="lazy"
         />
-        <div className="absolute top-4 right-4 bg-primary text-accent px-3 py-1 rounded-full text-sm font-bold">
-          {tour.price}
-        </div>
       </div>
 
-      <div className="p-6 flex flex-row justify-between items-center gap-4 grow">
-        <div className="flex-1 min-w-0">
-          <h3 className="text-xl font-bold text-ink truncate">
-            {tour.destination}
+      <div className="p-6 flex flex-col justify-between grow">
+        <div className="flex flex-1 min-w-0  flex-col mt-1">
+          <h3 className="text-lg font-bold line-clamp-1 text-ink truncate">
+            {tour.country}
           </h3>
-          <p className="text-sm text-ink/60">{tour.country}</p>
-          <p className="text-sm text-ink/60 flex items-center gap-2 mt-1">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-            Direct • {tour.duration}
-          </p>
+          <div className="flex flex-row">
+            {Array.from({ length: 5 }, (_, i) => (
+              <Star
+                key={i}
+                className={`size-4 mt-2 ${i < Math.round(tour.rating) ? "text-yellow-500 fill-yellow-500" : "text-yellow-500 "}`}
+              />
+            ))}
+            <p className="ml-2 mt-1.5 text-sm text-ink/60">{tour.rating}</p>
+          </div>
         </div>
-
-        <Link
-          to={`/tour/${tour.id}`}
-          className="whitespace-nowrap px-4 py-2 border-2 border-primary text-primary text-sm font-bold rounded-lg hover:bg-primary hover:text-white transition-colors"
-        >
-          View Details
-        </Link>
+        <div className="flex flex-row justify-between mt-3">
+          <p className="text-base text-ink/85 items-center mt-2">
+            {tour.price}
+          </p>
+          <Link
+            to={`/tour/${tour.id}`}
+            className="whitespace-nowrap px-4 py-2 border-2 border-primary text-primary text-sm font-bold rounded-lg hover:bg-primary hover:text-white transition-colors"
+          >
+            View Details
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import { fetchTourById, fetchTours } from "../services/mockTravelApi";
 
 const TourDetail = ({ tours, setTours }) => {
   const [fallbackTour, setFallbackTour] = useState(null);
-  const [openIndex, setOpenIndex] = useState(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -214,8 +213,8 @@ const TourDetail = ({ tours, setTours }) => {
           </section>
         </div>
 
-        {/* RIGHT COLUMN (1/3) - Sticky Booking Card */}
-        <div className="lg:sticky lg:top-32">
+        {/* Sticky Booking Card */}
+        <div className="lg:top-32">
           <div className="bg-primary text-white p-8 rounded-4xl shadow-xl">
             <div className="mb-6">
               <span className="text-accent text-sm font-bold uppercase">
