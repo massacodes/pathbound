@@ -60,7 +60,7 @@ const createFakeTour = (forcedCountry = null) => {
     price: `$${faker.commerce.price({ min: 800, max: 4500, dec: 0 })}`,
     rating: parseFloat(faker.number.float({ min: 1, max: 5 }).toFixed(1)),
     reviews: faker.number.int({ min: 20, max: 500 }),
-    image: `https://picsum.photos/seed/${lockId}/800/600`,
+    image: `https://picsum.photos/seed/${lockId}/1920/1080`,
     tourCode: faker.string.numeric(3).toUpperCase(),
     groupSize: `${faker.number.int({ min: 10, max: 20 })} - ${faker.number.int({ min: 30, max: 50 })}`,
     physicalRating: faker.helpers.arrayElement(["Low", "Medium", "High"]),
@@ -134,6 +134,6 @@ export const fetchTourById = async (id) => {
   return {
     ...tour,
     id,
-    image: `https://picsum.photos/seed/${id}/640/480`,
+    image: `https://picsum.photos/seed/${id}/1920/1080`,
   };
 };

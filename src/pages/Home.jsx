@@ -99,7 +99,7 @@ function App() {
               ].map((tour, index) => (
                 <div
                   key={index}
-                  className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer shadow-lg"
+                  className="group relative aspect-3/4 overflow-hidden rounded-2xl cursor-pointer shadow-lg"
                 >
                   {/* Background Image */}
                   <img

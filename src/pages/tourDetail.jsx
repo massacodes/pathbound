@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import {
+  Star,
+  Check,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  MapPin,
+} from "lucide-react";
 import { fetchTourById, fetchTours } from "../services/mockTravelApi";
 
 const TourDetail = ({ tours, setTours }) => {
   const [fallbackTour, setFallbackTour] = useState(null);
-
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Optionally, fetch tours if not already loaded
+  // Load tours if not already loaded (for fallback)
+
   useEffect(() => {
     if (!tours || tours.length === 0) {
       const loadTours = async () => {
@@ -23,12 +32,13 @@ const TourDetail = ({ tours, setTours }) => {
     }
   }, [tours, setTours]);
 
+  // Try to find the tour in the existing list first, then fallback to fetching by ID
+
   const matchedFallbackTour = fallbackTour?.id === id ? fallbackTour : null;
   const tour = tours.find((t) => t.id === id) || matchedFallbackTour;
 
   useEffect(() => {
     if (tour) return;
-
     const loadTourById = async () => {
       try {
         const data = await fetchTourById(id);
@@ -37,209 +47,185 @@ const TourDetail = ({ tours, setTours }) => {
         console.error(error);
       }
     };
-
     loadTourById();
   }, [id, tour]);
 
-  if (!tour) {
+  // If there's no tour, show loading state
+
+  if (!tour)
     return (
       <div className="max-w-7xl mx-auto px-6 py-12 text-center text-xl text-primary">
         Loading tour details...
       </div>
     );
-  }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      {/* Breadcrumb Navigation */}
-      <button
-        onClick={() => navigate(-1)}
-        className="text-primary mb-6 hover:underline"
-      >
-        ← Back to All Journeys
-      </button>
+    <div className="bg-white min-h-screen">
+      {/* Destination Images Gallery */}
+      <div className="relative h-screen bg-slate-900 overflow-hidden group">
+        <img
+          src={tour.image}
+          className="w-full h-full object-cover antialiased opacity-90"
+          style={{ imageRendering: "auto" }}
+          loading="eager"
+          alt={tour.destination}
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        {/* Navigation Arrows */}
+        <div className="absolute inset-0 flex items-center justify-between px-10 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button className="p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/40 transition">
+            <ChevronLeft size={32} />
+          </button>
+          <button className="p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/40 transition">
+            <ChevronRight size={32} />
+          </button>
+        </div>
+        {/* Back Button Overlay */}
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-8 left-8 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full hover:bg-white/40 transition flex items-center gap-2"
+        >
+          <ChevronLeft size={20} /> Back to All Journeys
+        </button>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-        {/* LEFT COLUMN (2/3) - Story & Details */}
-        <div className="lg:col-span-2 space-y-10">
-          <div className="rounded-3xl overflow-hidden shadow-2xl h-112.5">
-            <img
-              src={tour.image}
-              alt={tour.destination}
-              className="w-full h-full object-cover"
-            />
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* LEFT COLUMN: TOUR INFO & ITINERARY */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Header Section */}
+            <section>
+              <h1 className="text-4xl font-serif font-bold text-primary mb-2">
+                Explore {tour.destination}
+              </h1>
+              <p className="text-xl text-slate-600 mb-6">
+                {tour.country} in {tour.duration} Days,{" "}
+                {Math.round(tour.duration - 1)} Nights in Destination
+              </p>
+              <div className="flex gap-1 mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={24}
+                    className={
+                      i < Math.round(tour.rating)
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-slate-300"
+                    }
+                  />
+                ))}
+              </div>
+
+              <p className="text-lg text-ink/70 leading-relaxed">
+                Experience the soul of {tour.country}. From historic
+                architecture to world-class cuisine, your journey starts the
+                moment you board. Every detail is curated to perfection.
+              </p>
+            </section>
+
+            <hr className="border-slate-100" />
+
+            {/* Included / Not Included Sections */}
+            <div className="grid md:grid-cols-2 gap-10 bg-slate-50/50 p-8 rounded-3xl border border-slate-100">
+              <div>
+                <h3 className="font-serif text-2xl text-primary mb-6 flex items-center gap-2">
+                  <Check className="text-emerald-500" /> What's Included
+                </h3>
+                <ul className="space-y-4 text-ink/70">
+                  <li className="flex gap-3">
+                    ✈️ <strong>Flights:</strong> Round-trip economy included.
+                  </li>
+                  <li className="flex gap-3">
+                    🧳 <strong>Baggage:</strong> 23kg checked bag + 7kg
+                    carry-on.
+                  </li>
+                  <li className="flex gap-3">
+                    🏨 <strong>Stay:</strong> Hand-picked luxury accommodations.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-serif text-2xl text-primary mb-6 flex items-center gap-2">
+                  <X className="text-rose-500" /> Not Included
+                </h3>
+                <ul className="space-y-4 text-ink/50">
+                  <li className="flex gap-3">✕ Personal expenses and tips.</li>
+                  <li className="flex gap-3">
+                    ✕ Local museum entries (book separately).
+                  </li>
+                  <li className="flex gap-3">
+                    ✕ Comprehensive travel insurance.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* NEW: ITINERARY SECTION */}
+            <section>
+              <h3 className="text-3xl font-serif font-bold text-primary mb-8">
+                Itinerary
+              </h3>
+              <div className="space-y-0 ml-4 border-l-2 border-slate-200">
+                {[1, 2, 3].map((day) => (
+                  <div key={day} className="relative pb-10 pl-10 last:pb-0">
+                    {/* Timeline Dot */}
+                    <div className="absolute top-1 w-5 h-5 rounded-full bg-primary border-4 border-white shadow-sm" />
+
+                    <div className="flex items-center gap-3 text-sm font-bold text-emerald-700 uppercase tracking-widest mb-1">
+                      <Clock size={16} /> Day {day}
+                    </div>
+                    <h4 className="text-xl font-bold text-ink mb-2">
+                      Arrival & Exploration
+                    </h4>
+                    <p className="text-slate-600 leading-relaxed">
+                      Check-in to your boutique hotel. Meet your local guide for
+                      a welcome dinner and an evening orientation walk through
+                      the historic district.
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
 
-          <section>
-            <h1 className="font-serif text-5xl text-primary mb-4">
-              Explore {tour.destination}
-            </h1>
-            <p className="text-xl text-ink/60 leading-relaxed">
-              Experience the soul of {tour.country}. From historic architecture
-              to world-class cuisine, your journey starts the moment you board.
-            </p>
-          </section>
+          {/* RIGHT COLUMN: STICKY BOOKING CARD */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-28 bg-slate-100/80 backdrop-blur-md rounded-3xl p-8 border border-slate-200 shadow-sm text-center">
+              <p className="text-slate-400 line-through text-lg">
+                From ${Math.round(tour.price * 1.6)}
+              </p>
+              <div className="flex flex-col items-center gap-1 my-4">
+                <h2 className="text-5xl font-bold text-primary">
+                  ${tour.price}
+                </h2>
+                <span className="text-emerald-600 font-bold bg-emerald-100 px-3 py-1 rounded-full text-sm">
+                  Save 60%
+                </span>
+              </div>
+              <p className="text-slate-500 text-sm mb-8">
+                per person / all-inclusive package
+              </p>
 
-          {/* 2. Tour Quick Facts Grid */}
-          <section className="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4 border-y border-slate-100 py-10">
-            <div>
-              <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">
-                Tour Operator
-              </h4>
-              <p className="text-lg text-primary font-medium">
-                Expat Explore Travel
+              <div className="space-y-4 mb-8 text-left">
+                <div className="flex justify-between text-sm py-2 border-b border-slate-200">
+                  <span className="text-slate-500 italic">Guide Type</span>
+                  <span className="font-bold">Fully Guided</span>
+                </div>
+                <div className="flex justify-between text-sm py-2 border-b border-slate-200">
+                  <span className="text-slate-500 italic">Group Size</span>
+                  <span className="font-bold">Max 15</span>
+                </div>
+              </div>
+
+              <button className="w-full bg-primary text-white font-bold py-5 rounded-2xl hover:bg-primary/90 transition-all shadow-lg active:scale-95">
+                Complete Booking
+              </button>
+
+              <p className="mt-4 text-xs text-slate-400 flex items-center justify-center gap-2">
+                <MapPin size={12} /> Flexible cancellation available
               </p>
             </div>
-            <div>
-              <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">
-                Tour Code
-              </h4>
-              <p className="text-lg text-primary font-medium">ITS</p>
-            </div>
-            <div>
-              <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">
-                Guide Type
-              </h4>
-              <p className="text-lg text-primary font-medium">Fully Guided</p>
-            </div>
-            <div>
-              <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">
-                Group Size
-              </h4>
-              <p className="text-lg text-primary font-medium">10 - 51</p>
-            </div>
-            <div>
-              <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">
-                Physical Rating
-              </h4>
-              <p className="text-lg text-primary font-medium">Low</p>
-            </div>
-            <div>
-              <h4 className="text-xs uppercase tracking-widest text-ink/40 font-bold mb-1">
-                Age Range
-              </h4>
-              <p className="text-lg text-primary font-medium">10+</p>
-            </div>
-          </section>
-
-          {/* 3. What's Included Section */}
-          <section className="space-y-6 mt-26">
-            <h2 className="font-serif text-3xl text-primary">
-              What's Included
-            </h2>
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="text-2xl text-accent">✈️</div>
-                <div>
-                  <h4 className="font-bold text-primary">
-                    International tours
-                  </h4>
-                  <p className="text-ink/60 leading-relaxed">
-                    Round-trip economy class tours (upgradeable) from SFO to{" "}
-                    {tour.destination} are fully included in this package.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="text-2xl text-accent">🧳</div>
-                <div>
-                  <h4 className="font-bold text-primary">Baggage Allowance</h4>
-                  <p className="text-ink/60 leading-relaxed">
-                    1 Carry-on (7kg) and 1 Checked-in bag (23kg) included per
-                    passenger.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 4. What's Not Included - Corrected Logic */}
-          <section className="bg-slate-50 p-8 rounded-3xl space-y-4 border border-slate-100">
-            <h2 className="font-serif text-2xl text-primary font-medium">
-              What's Not Included
-            </h2>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-ink/60">
-                <span className="text-red-400 font-bold">✕</span>
-                <span>
-                  <strong>Land Tours:</strong> Local excursions, museum entries,
-                  and guided city walks must be booked separately.
-                </span>
-              </li>
-              <li className="flex items-start gap-3 text-ink/60">
-                <span className="text-red-400 font-bold">✕</span>
-                <span>
-                  <strong>Visas:</strong> While we provide tour documentation,
-                  entry visas remain the traveller’s responsibility.
-                </span>
-              </li>
-              <li className="flex items-start gap-3 text-ink/60">
-                <span className="text-red-400 font-bold">✕</span>
-                <span>
-                  <strong>Travel Insurance:</strong> We highly recommend
-                  purchasing comprehensive insurance for your journey.
-                </span>
-              </li>
-            </ul>
-          </section>
-
-          {/* 5. Detailed Tour Information (FAQ style) */}
-          <section className="space-y-6">
-            <div className="border-b border-slate-100 pb-4">
-              <h2 className="font-serif text-3xl text-primary">
-                Detailed Tour Information
-              </h2>
-              <p className="text-ink/40 italic">
-                Everything you need to know ahead of the tour
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              {[
-                "Accommodation",
-                "Meals & Diets",
-                "Practical Info",
-                "Group & Guide",
-              ].map((topic) => (
-                <div
-                  key={topic}
-                  className="group border border-slate-100 rounded-2xl p-6 hover:bg-white hover:shadow-md transition-all cursor-pointer flex justify-between items-center"
-                >
-                  <span className="font-bold text-primary">{topic}</span>
-                  <span className="text-accent">→</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        {/* Sticky Booking Card */}
-        <div className="lg:top-32">
-          <div className="bg-primary text-white p-8 rounded-4xl shadow-xl">
-            <div className="mb-6">
-              <span className="text-accent text-sm font-bold uppercase">
-                Total Price
-              </span>
-              <h2 className="text-4xl font-sans">
-                {tour.price}{" "}
-                <span className="text-lg font-sans text-white/60">/person</span>
-              </h2>
-            </div>
-
-            <div className="space-y-4 mb-8">
-              <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                <span>Airline</span>
-                <span className="font-bold">{tour.airline}</span>
-              </div>
-              <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                <span>Aircraft</span>
-                <span className="font-bold">{tour.aircraft}</span>
-              </div>
-            </div>
-
-            <button className="w-full bg-accent text-primary font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform">
-              Complete Booking
-            </button>
           </div>
         </div>
       </div>
