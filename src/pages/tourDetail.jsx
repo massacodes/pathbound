@@ -94,11 +94,11 @@ const TourDetail = () => {
               <h1 className="text-4xl font-serif font-bold text-primary mb-2">
                 Explore {tour.destination}
               </h1>
-              <p className="text-xl text-slate-600 mb-6">
+              <p className="text-xl text-slate-600 mb-5">
                 {tour.country} in {tour.duration} Days,{" "}
                 {Math.round(tour.duration - 1)} Nights in Destination
               </p>
-              <div className="flex gap-1 mb-6">
+              <div className="flex gap-1 mb-11">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
@@ -106,7 +106,7 @@ const TourDetail = () => {
                     className={
                       i < Math.round(tour.rating)
                         ? "fill-yellow-400 text-yellow-400"
-                        : "text-slate-300"
+                        : "text-yellow-400"
                     }
                   />
                 ))}
@@ -119,44 +119,27 @@ const TourDetail = () => {
               </p>
             </section>
 
-            <hr className="border-slate-100" />
+            <hr className="border-slate-300" />
 
-            {/* Included / Not Included Sections */}
-            <div className="grid md:grid-cols-2 gap-10 bg-slate-50/50 p-8 rounded-3xl border border-slate-100">
-              <div>
-                <h3 className="font-serif text-2xl text-primary mb-6 flex items-center gap-2">
-                  <Check className="text-emerald-500" /> What's Included
-                </h3>
-                <ul className="space-y-4 text-ink/70">
-                  <li className="flex gap-3">
-                    ✈️ <strong>Flights:</strong> Round-trip economy included.
-                  </li>
-                  <li className="flex gap-3">
-                    🧳 <strong>Baggage:</strong> 23kg checked bag + 7kg
-                    carry-on.
-                  </li>
-                  <li className="flex gap-3">
-                    🏨 <strong>Stay:</strong> Hand-picked luxury accommodations.
-                  </li>
-                </ul>
+            {/* Details Section */}
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-y border-slate-100">
+              <div className="flex flex-col pl-7">
+                <div className="border-b-slate-300 border-b-2 py-6">
+                  Reviews
+                </div>
+                <div className="border-b-slate-300 border-b-2 py-6">
+                  Tour Code
+                </div>
+                <div className="border-b-slate-300 border-b-2 py-6">
+                  Physical Rating
+                </div>
+                <div className="border-b-slate-300 border-b-2 py-6">
+                  Interests
+                </div>
               </div>
-              <div>
-                <h3 className="font-serif text-2xl text-primary mb-6 flex items-center gap-2">
-                  <X className="text-rose-500" /> Not Included
-                </h3>
-                <ul className="space-y-4 text-ink/50">
-                  <li className="flex gap-3">✕ Personal expenses and tips.</li>
-                  <li className="flex gap-3">
-                    ✕ Local museum entries (book separately).
-                  </li>
-                  <li className="flex gap-3">
-                    ✕ Comprehensive travel insurance.
-                  </li>
-                </ul>
-              </div>
-            </div>
+            </section>
 
-            {/* NEW: ITINERARY SECTION */}
+            {/* Itinerary Section */}
             <section>
               <h3 className="text-3xl font-serif font-bold text-primary mb-8">
                 Itinerary
@@ -184,7 +167,7 @@ const TourDetail = () => {
             </section>
           </div>
 
-          {/* RIGHT COLUMN: STICKY BOOKING CARD */}
+          {/* Right Column: Booking Card */}
           <div className="lg:col-span-1">
             <div className="sticky top-28 bg-slate-100/80 backdrop-blur-md rounded-3xl p-8 border border-slate-200 shadow-sm text-center">
               <p className="text-slate-400 line-through text-lg">
