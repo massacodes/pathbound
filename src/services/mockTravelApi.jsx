@@ -44,14 +44,14 @@ const normalizedLocaleMap = Object.fromEntries(
 
 // This function creates a fake Tour object, optionally forcing the country to match the search query
 
-const createFakeTour = (forcedCountry = null) => {
+const createFakeTour = (forcedCountry = null, id = null) => {
+  const tourId = id || faker.string.uuid();
   const normalized = normalize(forcedCountry);
   const countryWorker = normalizedLocaleMap[normalized] || faker;
   const countryName = forcedCountry || faker.location.country();
-  const lockId = faker.number.int({ min: 1, max: 1000 });
 
   return {
-    id: faker.string.uuid(),
+    id: tourId,
     title: `${faker.location.city()} & The ${faker.commerce.productAdjective()} Coast`,
     country: countryName,
     destination: `${countryWorker.location.city()}`,
@@ -60,7 +60,7 @@ const createFakeTour = (forcedCountry = null) => {
     price: `$${faker.commerce.price({ min: 800, max: 4500, dec: 0 })}`,
     rating: parseFloat(faker.number.float({ min: 1, max: 5 }).toFixed(1)),
     reviews: faker.number.int({ min: 20, max: 500 }),
-    image: `https://picsum.photos/seed/${lockId}/1920/1080`,
+    image: `https://picsum.photos/seed/${tourId}/1200/800`,
     tourCode: faker.string.numeric(3).toUpperCase(),
     groupSize: `${faker.number.int({ min: 10, max: 20 })} - ${faker.number.int({ min: 30, max: 50 })}`,
     physicalRating: faker.helpers.arrayElement(["Low", "Medium", "High"]),
@@ -130,10 +130,13 @@ export const fetchTours = async (query) => {
 
 export const fetchTourById = async (id) => {
   await new Promise((resolve) => setTimeout(resolve, 300));
-  const tour = createFakeTour();
+  const tour = createFakeTour(null, id);
   return {
     ...tour,
-    id,
-    image: `https://picsum.photos/seed/${id}/1920/1080`,
+    images: [
+      `https://picsum.photos/seed/${id}/1200/800`,
+      `https://picsum.photos/seed/${id + 1}/1200/800`,
+      `https://picsum.photos/seed/${id + 2}/1200/800`,
+    ],
   };
 };

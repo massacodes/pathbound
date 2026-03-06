@@ -9,46 +9,35 @@ import {
   Clock,
   MapPin,
 } from "lucide-react";
-import { fetchTourById, fetchTours } from "../services/mockTravelApi";
+import { fetchTourById } from "../services/mockTravelApi";
 
-const TourDetail = ({ tours, setTours }) => {
-  const [fallbackTour, setFallbackTour] = useState(null);
+const TourDetail = () => {
+  const [tour, setTour] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Load tours if not already loaded (for fallback)
-
   useEffect(() => {
-    if (!tours || tours.length === 0) {
-      const loadTours = async () => {
-        try {
-          const data = await fetchTours();
-          setTours(data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      loadTours();
-    }
-  }, [tours, setTours]);
-
-  // Try to find the tour in the existing list first, then fallback to fetching by ID
-
-  const matchedFallbackTour = fallbackTour?.id === id ? fallbackTour : null;
-  const tour = tours.find((t) => t.id === id) || matchedFallbackTour;
-
-  useEffect(() => {
-    if (tour) return;
     const loadTourById = async () => {
       try {
         const data = await fetchTourById(id);
-        setFallbackTour(data);
+        setTour(data);
       } catch (error) {
         console.error(error);
       }
     };
     loadTourById();
-  }, [id, tour]);
+  }, [id, setTour]);
+
+  const prevImage = () => {
+    setCurrentImageIndex(
+      (prev) => (prev - 1 + tour.images.length) % tour.images.length,
+    );
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % tour.images.length);
+  };
 
   // If there's no tour, show loading state
 
@@ -64,20 +53,26 @@ const TourDetail = ({ tours, setTours }) => {
       {/* Destination Images Gallery */}
       <div className="relative h-screen bg-slate-900 overflow-hidden group">
         <img
-          src={tour.image}
+          src={tour.images[currentImageIndex]}
           className="w-full h-full object-cover antialiased opacity-90"
           style={{ imageRendering: "auto" }}
-          loading="eager"
+          loading="lazy"
           alt={tour.destination}
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
         {/* Navigation Arrows */}
         <div className="absolute inset-0 flex items-center justify-between px-10 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/40 transition">
+          <button
+            onClick={prevImage}
+            className="p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/40 transition"
+          >
             <ChevronLeft size={32} />
           </button>
-          <button className="p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/40 transition">
+          <button
+            onClick={nextImage}
+            className="p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/40 transition"
+          >
             <ChevronRight size={32} />
           </button>
         </div>

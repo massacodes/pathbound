@@ -33,10 +33,7 @@ function App() {
           path="/destinations"
           element={<Destinations tours={tours} setTours={setTours} />}
         />
-        <Route
-          path="/tour/:id"
-          element={<TourDetail tours={tours} setTours={setTours} />}
-        />
+        <Route path="/tour/:id" element={<TourDetail />} />
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
