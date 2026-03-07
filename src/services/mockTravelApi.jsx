@@ -57,7 +57,7 @@ const createFakeTour = (forcedCountry = null, id = null) => {
     destination: `${countryWorker.location.city()}`,
     duration: faker.number.int({ min: 5, max: 14 }),
     operator: "Expat Explore Travel",
-    price: `$${faker.commerce.price({ min: 800, max: 4500, dec: 0 })}`,
+    price: `${faker.commerce.price({ min: 800, max: 4500, dec: 0 })}`,
     rating: parseFloat(faker.number.float({ min: 1, max: 5 }).toFixed(1)),
     reviews: faker.number.int({ min: 20, max: 500 }),
     image: `https://picsum.photos/seed/${tourId}/1200/800`,
@@ -65,8 +65,17 @@ const createFakeTour = (forcedCountry = null, id = null) => {
     groupSize: `${faker.number.int({ min: 10, max: 20 })} - ${faker.number.int({ min: 30, max: 50 })}`,
     physicalRating: faker.helpers.arrayElement(["Low", "Medium", "High"]),
     interests: faker.helpers.arrayElements(
-      ["Culture", "History", "Nature", "Food"],
-      2,
+      [
+        "Culture",
+        "History",
+        "Nature",
+        "Food",
+        "Adventure",
+        "Relaxation",
+        "Wildlife",
+        "Photography",
+      ],
+      4,
     ),
     // Brief summary for the card
     excerpt: `Discover the hidden gems of ${faker.location.country()} on this fully-guided journey.`,

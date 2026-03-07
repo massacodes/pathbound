@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Star,
   Check,
@@ -8,6 +8,7 @@ import {
   ChevronRight,
   Clock,
   MapPin,
+  Activity,
 } from "lucide-react";
 import { fetchTourById } from "../services/mockTravelApi";
 
@@ -15,7 +16,6 @@ const TourDetail = () => {
   const [tour, setTour] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const loadTourById = async () => {
@@ -76,20 +76,14 @@ const TourDetail = () => {
             <ChevronRight size={32} />
           </button>
         </div>
-        {/* Back Button Overlay */}
-        <button
-          onClick={() => navigate(-1)}
-          className="absolute top-8 left-8 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full hover:bg-white/40 transition flex items-center gap-2"
-        >
-          <ChevronLeft size={20} /> Back to All Journeys
-        </button>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* LEFT COLUMN: TOUR INFO & ITINERARY */}
+          {/* left column: tour info & itinerary */}
+
           <div className="lg:col-span-2 space-y-12">
-            {/* Header Section */}
+            {/* header section */}
             <section>
               <h1 className="text-4xl font-serif font-bold text-primary mb-2">
                 Explore {tour.destination}
@@ -98,11 +92,11 @@ const TourDetail = () => {
                 {tour.country} in {tour.duration} Days,{" "}
                 {Math.round(tour.duration - 1)} Nights in Destination
               </p>
-              <div className="flex gap-1 mb-11">
+              <div className="flex items-center gap-1 mb-10">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    size={24}
+                    size={22}
                     className={
                       i < Math.round(tour.rating)
                         ? "fill-yellow-400 text-yellow-400"
@@ -110,6 +104,14 @@ const TourDetail = () => {
                     }
                   />
                 ))}
+                <div className="pl-3 items-center justify-center flex flex-row">
+                  <p className="text-lg font-bold text-slate-900">
+                    {tour.rating}
+                  </p>
+                  <p className="text-sm text-slate-500 ml-2">
+                    ({tour.reviews} reviews)
+                  </p>
+                </div>
               </div>
 
               <p className="text-lg text-ink/70 leading-relaxed">
@@ -119,27 +121,62 @@ const TourDetail = () => {
               </p>
             </section>
 
-            <hr className="border-slate-300" />
-
             {/* Details Section */}
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-y border-slate-100">
-              <div className="flex flex-col pl-7">
-                <div className="border-b-slate-300 border-b-2 py-6">
-                  Reviews
+            <section className="max-w-4xl py-11 border-y border-slate-300 mt-12 mb-16">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-slate-300">
+                {/* tour code - technical detail */}
+                <div className="flex flex-col items-center md:items-start px-4">
+                  <span className="text-sm uppercase tracking-[0.2em] text-slate-500 font-bold mb-4">
+                    Reference
+                  </span>
+                  <span className="font-mono text-base font-semibold text-slate-900 ">
+                    Tour Code: {tour.tourCode || "PB-2026-X"}
+                  </span>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Instant Confirmation
+                  </p>
                 </div>
-                <div className="border-b-slate-300 border-b-2 py-6">
-                  Tour Code
+
+                {/* physical rating - difficulty */}
+                <div className="flex flex-col items-center md:items-start px-4">
+                  <span className="text-sm uppercase tracking-[0.2em] text-slate-500 font-bold mb-4">
+                    Intensity
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <Activity size={16} className="text-primary" />
+                    <span className="text-sm font-bold text-slate-900">
+                      {tour.physicalRating}
+                    </span>
+                  </div>
+                  <div className="w-full h-1 bg-slate-300  mt-2 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary transition-all  duration-500"
+                      style={{
+                        width: tour.physicalRating === "High" ? "100%" : "50%",
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="border-b-slate-300 border-b-2 py-6">
-                  Physical Rating
-                </div>
-                <div className="border-b-slate-300 border-b-2 py-6">
-                  Interests
+
+                {/* interests - tag cloud */}
+                <div className="flex flex-col items-center md:items-start px-4">
+                  <span className="text-sm uppercase tracking-[0.2em] text-slate-500 font-bold mb-4">
+                    Category
+                  </span>
+                  <div className="flex flex-wrap gap-1 justify-center md:justify-start">
+                    {tour.interests?.slice(0, 4).map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-xs font-bold border border-slate-400 px-2 py-1 rounded text-ink uppercase"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </section>
-
-            {/* Itinerary Section */}
+            {/* itinerary section */}
             <section>
               <h3 className="text-3xl font-serif font-bold text-primary mb-8">
                 Itinerary
