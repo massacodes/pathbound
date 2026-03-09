@@ -26,8 +26,6 @@ function TourDetail() {
 
   const savedTour = getSavedTour();
 
-  console.log(savedTour);
-
   useEffect(() => {
     const loadTourById = async () => {
       try {
@@ -189,29 +187,33 @@ function TourDetail() {
               </div>
             </section>
             {/* itinerary section */}
-            <section>
+            <section className="pb-18">
               <h3 className="text-3xl font-serif font-bold text-primary mb-8">
                 Itinerary
               </h3>
               <div className="space-y-0 ml-4 border-l-2 border-slate-200">
-                {[1, 2, 3].map((day) => (
-                  <div key={day} className="relative pb-10 pl-10 last:pb-0">
-                    {/* Timeline Dot */}
-                    <div className="absolute top-1 w-5 h-5 rounded-full bg-primary border-4 border-white shadow-sm" />
+                {[...Array(Number(savedTour.duration))]
+                  .map((_, i) => i + 1)
+                  .map((day) => (
+                    <div key={day} className="grid gap-2 pb-14 pl-10 last:pb-0">
+                      {/* Timeline Dot */}
+                      <div>
+                        <div className="flex flex-row items-center gap-2 mb-4">
+                          <div className="w-4 h-4 rounded-full bg-primary shadow-sm" />
+                          <div className="flex items-center gap-3 text-sm font-bold text-emerald-700 uppercase tracking-widest">
+                            Day {day}
+                          </div>
+                        </div>
 
-                    <div className="flex items-center gap-3 text-sm font-bold text-emerald-700 uppercase tracking-widest mb-1">
-                      <Clock size={16} /> Day {day}
+                        <h4 className="text-xl font-bold text-ink mb-2">
+                          {tour.itinerary?.[day - 1]?.title}
+                        </h4>
+                        <p className="text-slate-600 leading-relaxed">
+                          {tour.itinerary?.[day - 1]?.description}
+                        </p>
+                      </div>
                     </div>
-                    <h4 className="text-xl font-bold text-ink mb-2">
-                      Arrival & Exploration
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed">
-                      Check-in to your boutique hotel. Meet your local guide for
-                      a welcome dinner and an evening orientation walk through
-                      the historic district.
-                    </p>
-                  </div>
-                ))}
+                  ))}
               </div>
             </section>
           </div>
@@ -249,7 +251,7 @@ function TourDetail() {
                 Complete Booking
               </button>
 
-              <p className="mt-4 text-xs text-slate-400 flex items-center justify-center gap-2">
+              <p className="mt-4 text-sm text-slate-600 flex items-center justify-center gap-2">
                 <MapPin size={12} /> Flexible cancellation available
               </p>
             </div>

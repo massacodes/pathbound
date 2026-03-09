@@ -137,9 +137,31 @@ export const fetchTours = async (query) => {
   return Array.from({ length: 9 }, () => createFakeTour(query));
 };
 
+// Default itinerary titles that will be assigned in order
+const defaultItineraryTitles = [
+  "Arrival & Welcome",
+  "City Exploration",
+  "Cultural Immersion",
+  "Adventure Day",
+  "Leisure & Shopping",
+  "Historical Sites",
+  "Local Cuisine Experience",
+  "Nature & Scenery",
+  "Free Day",
+  "Farewell & Departure",
+];
+
 export const fetchTourById = async (id) => {
   await new Promise((resolve) => setTimeout(resolve, 300));
   const tour = createFakeTour(null, id);
+
+  // Generate itinerary based on tour duration
+  const itinerary = Array.from({ length: tour.duration }, (_, i) => ({
+    day: i + 1,
+    title: defaultItineraryTitles[i] || `Day ${i + 1} Activities`,
+    description: faker.lorem.sentences(2),
+  }));
+
   return {
     ...tour,
     images: [
@@ -147,5 +169,6 @@ export const fetchTourById = async (id) => {
       `https://picsum.photos/seed/${id + 1}/1200/800`,
       `https://picsum.photos/seed/${id + 2}/1200/800`,
     ],
+    itinerary,
   };
 };
