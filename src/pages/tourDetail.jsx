@@ -12,10 +12,21 @@ import {
 } from "lucide-react";
 import { fetchTourById } from "../services/mockTravelApi";
 
-const TourDetail = () => {
+function TourDetail() {
   const [tour, setTour] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { id } = useParams();
+
+  const getSavedTour = () => {
+    const rawData = localStorage.getItem("pathbound-tours");
+    if (!rawData) return null;
+    const allTours = JSON.parse(rawData);
+    return allTours.find((t) => String(t.id) === String(id)) || null;
+  };
+
+  const savedTour = getSavedTour();
+
+  console.log(savedTour);
 
   useEffect(() => {
     const loadTourById = async () => {
@@ -57,7 +68,7 @@ const TourDetail = () => {
           className="w-full h-full object-cover antialiased opacity-90"
           style={{ imageRendering: "auto" }}
           loading="lazy"
-          alt={tour.destination}
+          alt={savedTour.destination}
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
@@ -86,11 +97,11 @@ const TourDetail = () => {
             {/* header section */}
             <section>
               <h1 className="text-4xl font-serif font-bold text-primary mb-2">
-                Explore {tour.destination}
+                Explore {savedTour.destination}
               </h1>
               <p className="text-xl text-slate-600 mb-5">
-                {tour.country} in {tour.duration} Days,{" "}
-                {Math.round(tour.duration - 1)} Nights in Destination
+                {savedTour.country} in {savedTour.duration} Days,{" "}
+                {Math.round(savedTour.duration - 1)} Nights in Destination
               </p>
               <div className="flex items-center gap-1 mb-10">
                 {[...Array(5)].map((_, i) => (
@@ -98,7 +109,7 @@ const TourDetail = () => {
                     key={i}
                     size={22}
                     className={
-                      i < Math.round(tour.rating)
+                      i < Math.round(savedTour.rating)
                         ? "fill-yellow-400 text-yellow-400"
                         : "text-yellow-400"
                     }
@@ -106,16 +117,16 @@ const TourDetail = () => {
                 ))}
                 <div className="pl-3 items-center justify-center flex flex-row">
                   <p className="text-lg font-bold text-slate-900">
-                    {tour.rating}
+                    {savedTour.rating}
                   </p>
                   <p className="text-sm text-slate-500 ml-2">
-                    ({tour.reviews} reviews)
+                    ({savedTour.reviews} reviews)
                   </p>
                 </div>
               </div>
 
               <p className="text-lg text-ink/70 leading-relaxed">
-                Experience the soul of {tour.country}. From historic
+                Experience the soul of {savedTour.country}. From historic
                 architecture to world-class cuisine, your journey starts the
                 moment you board. Every detail is curated to perfection.
               </p>
@@ -130,7 +141,7 @@ const TourDetail = () => {
                     Reference
                   </span>
                   <span className="font-mono text-base font-semibold text-slate-900 ">
-                    Tour Code: {tour.tourCode || "PB-2026-X"}
+                    Tour Code: {savedTour.tourCode || "PB-2026-X"}
                   </span>
                   <p className="text-xs text-slate-600 mt-1">
                     Instant Confirmation
@@ -145,14 +156,15 @@ const TourDetail = () => {
                   <div className="flex items-center gap-2">
                     <Activity size={16} className="text-primary" />
                     <span className="text-sm font-bold text-slate-900">
-                      {tour.physicalRating}
+                      {savedTour.physicalRating}
                     </span>
                   </div>
                   <div className="w-full h-1 bg-slate-300  mt-2 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-primary transition-all  duration-500"
                       style={{
-                        width: tour.physicalRating === "High" ? "100%" : "50%",
+                        width:
+                          savedTour.physicalRating === "High" ? "100%" : "50%",
                       }}
                     />
                   </div>
@@ -164,7 +176,7 @@ const TourDetail = () => {
                     Category
                   </span>
                   <div className="flex flex-wrap gap-1 justify-center md:justify-start">
-                    {tour.interests?.slice(0, 4).map((tag, i) => (
+                    {savedTour.interests?.slice(0, 4).map((tag, i) => (
                       <span
                         key={i}
                         className="text-xs font-bold border border-slate-400 px-2 py-1 rounded text-ink uppercase"
@@ -208,11 +220,11 @@ const TourDetail = () => {
           <div className="lg:col-span-1">
             <div className="sticky top-28 bg-slate-100/80 backdrop-blur-md rounded-3xl p-8 border border-slate-200 shadow-sm text-center">
               <p className="text-slate-400 line-through text-lg">
-                From ${Math.round(tour.price * 1.6)}
+                From ${Math.round(savedTour.price * 1.6)}
               </p>
               <div className="flex flex-col items-center gap-1 my-4">
                 <h2 className="text-5xl font-bold text-primary">
-                  ${tour.price}
+                  ${savedTour.price}
                 </h2>
                 <span className="text-emerald-600 font-bold bg-emerald-100 px-3 py-1 rounded-full text-sm">
                   Save 60%
@@ -246,6 +258,6 @@ const TourDetail = () => {
       </div>
     </div>
   );
-};
+}
 
 export default TourDetail;

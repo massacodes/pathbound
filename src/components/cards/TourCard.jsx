@@ -32,7 +32,7 @@ function TourCard({ tour }) {
         </div>
         <div className="flex flex-row justify-between mt-3">
           <p className="text-base text-ink/85 items-center mt-2">
-            {tour.price}
+            ${tour.price}
           </p>
           <Link
             to={`/tour/${tour.id}`}
