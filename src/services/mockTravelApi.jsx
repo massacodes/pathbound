@@ -122,11 +122,11 @@ const looksLikeCountry = (query) => {
   return true;
 };
 
-export const fetchTours = async (query) => {
+export const fetchTours = async (query, toursCount) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   if (!query) {
     // Return 12 random Tours if there's no search
-    return Array.from({ length: 9 }, () => createFakeTour());
+    return Array.from({ length: toursCount || 9 }, () => createFakeTour());
   }
 
   if (!looksLikeCountry(query)) {

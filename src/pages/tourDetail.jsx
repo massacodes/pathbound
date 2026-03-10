@@ -220,7 +220,7 @@ function TourDetail() {
 
           {/* Right Column: Booking Card */}
           <div className="lg:col-span-1">
-            <div className="sticky top-28 bg-slate-100/80 backdrop-blur-md rounded-3xl p-8 border border-slate-200 shadow-sm text-center">
+            <div className="top-28 bg-slate-100/80 backdrop-blur-md rounded-3xl p-8 border border-slate-200 shadow-sm text-center">
               <p className="text-slate-400 line-through text-lg">
                 From ${Math.round(savedTour.price * 1.6)}
               </p>

@@ -14,6 +14,8 @@ function Destinations({ tours, setTours }) {
     location.state?.initialQuery || "",
   );
 
+  // Load tours from localStorage on component mount
+
   useEffect(() => {
     const savedTours = localStorage.getItem("pathbound_tours");
 
@@ -21,6 +23,8 @@ function Destinations({ tours, setTours }) {
       setTours(JSON.parse(savedTours));
     }
   }, [setTours]);
+
+  // Load tours based on search query
 
   const loadDeals = useCallback(
     async (query) => {
@@ -38,6 +42,8 @@ function Destinations({ tours, setTours }) {
     },
     [setTours, tours],
   );
+
+  // Load initial tours when component mounts, using any initial query from location state
 
   useEffect(() => {
     loadDeals(location.state?.initialQuery || "");

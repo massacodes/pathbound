@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../index.css";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchTours } from "../services/mockTravelApi";
 
 // assets
 import verifiedIcon from "../assets/icons/verified.svg";
@@ -16,6 +17,20 @@ import SearchBar from "../components/ui/SearchBar.jsx";
 function App() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const [tours, setTours] = useState([]);
+
+  useEffect(() => {
+    const loadTours = async () => {
+      try {
+        const data = await fetchTours();
+        setTours(data.slice(0, 4));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadTours();
+  }, []);
 
   const handleSearch = () => {
     navigate("/destinations", { state: { initialQuery: query } });
@@ -71,40 +86,15 @@ function App() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  name: "Amalfi Coast",
-                  img: "https://picsum.photos/seed/italy/600/800",
-                  price: "2,400",
-                  loc: "Italy",
-                },
-                {
-                  name: "Kyoto Gardens",
-                  img: "https://picsum.photos/seed/japan/600/800",
-                  price: "3,100",
-                  loc: "Japan",
-                },
-                {
-                  name: "Swiss Alps",
-                  img: "https://picsum.photos/seed/swiss/600/800",
-                  price: "1,950",
-                  loc: "Switzerland",
-                },
-                {
-                  name: "Greek Isles",
-                  img: "https://picsum.photos/seed/greece/600/800",
-                  price: "2,800",
-                  loc: "Greece",
-                },
-              ].map((tour, index) => (
+              {tours.map((tour) => (
                 <div
-                  key={index}
+                  key={tour.id}
                   className="group relative aspect-3/4 overflow-hidden rounded-2xl cursor-pointer shadow-lg"
                 >
                   {/* Background Image */}
                   <img
-                    src={tour.img}
-                    alt={tour.name}
+                    src={tour.image}
+                    alt={tour.destination}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
 
@@ -121,10 +111,10 @@ function App() {
                   {/* Tour Details */}
                   <div className="absolute bottom-0 left-0 p-6 w-full translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                     <p className="text-white/70 text-xs uppercase tracking-widest mb-1">
-                      {tour.loc}
+                      {tour.country}
                     </p>
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      {tour.name}
+                      {tour.destination}
                     </h3>
                     <p className="text-white font-medium">From ${tour.price}</p>
                   </div>
@@ -148,21 +138,21 @@ function App() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              {/* Expert Curation (Airplane replaced by concept of journey) */}
+              {/* Expert Curation */}
               <FeatureCard
                 title="Expert Curation"
                 desc="Every itinerary is vetted by travel experts to ensure you see the best of every destination."
                 iconSrc={verifiedIcon}
               />
 
-              {/* Verified Travelers (Message Bubbles) */}
+              {/* Verified Travelers */}
               <FeatureCard
                 title="Verified Reviews"
                 desc="Read honest feedback from thousands of travelers who have walked these paths before you."
                 iconSrc={commentIcon}
               />
 
-              {/* All-Inclusive Ease (One-Click) */}
+              {/* All-Inclusive Ease */}
               <FeatureCard
                 title="Seamless Booking"
                 desc="From local transport to 4-star stays, secure your entire multi-day journey in one click."
