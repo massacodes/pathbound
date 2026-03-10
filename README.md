@@ -3,6 +3,7 @@
 A modern, high-end travel discovery web app designed for luxury agencies. PathBound provides an editorial-grade experience for users to explore curated destinations, view high-resolution galleries, and scan technical tour specifications at a glance.
 
 <br>
+
 ## Features
 
 Editorial Gallery: Dual-source image fetching (API + Mock) with smooth navigation.
