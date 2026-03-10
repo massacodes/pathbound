@@ -1,12 +1,12 @@
 # PathBound
 
-A modern, high-end travel discovery interface designed for luxury agencies. PathBound provides an editorial-grade experience for users to explore curated destinations, view high-resolution galleries, and scan technical tour specifications at a glance.
+A modern, high-end travel discovery web app designed for luxury agencies. PathBound provides an editorial-grade experience for users to explore curated destinations, view high-resolution galleries, and scan technical tour specifications at a glance.
 
 ## Features
 
 Editorial Gallery: Dual-source image fetching (API + Mock) with smooth navigation.
 
-Metadata-Rich Info: Clean, scannable dashboard for Tour Code, Physical Intensity, and Interests.
+Metadata-Rich Info: Clean, scannable dashboard for tour info
 
 Responsive Layout: Mobile-first grid architecture using Tailwind CSS.
 
@@ -23,7 +23,6 @@ Tailwind CSS
 ## Setup and Prerequisites
 
 Node.js: v18.0.0 or higher
-
 npm: v9.0.0 or higher
 
 ## Steps
