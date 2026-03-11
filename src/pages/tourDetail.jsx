@@ -17,6 +17,8 @@ function TourDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { id } = useParams();
 
+  // Load saved tour from localStorage if available, otherwise fetch from API
+
   const getSavedTour = () => {
     const rawData = localStorage.getItem("pathbound-tours");
     if (!rawData) return null;
@@ -25,6 +27,8 @@ function TourDetail() {
   };
 
   const savedTour = getSavedTour();
+
+  // Fetch tour details on component mount
 
   useEffect(() => {
     const loadTourById = async () => {
@@ -37,6 +41,8 @@ function TourDetail() {
     };
     loadTourById();
   }, [id, setTour]);
+
+  // Image gallery navigation handlers
 
   const prevImage = () => {
     setCurrentImageIndex(
@@ -66,7 +72,7 @@ function TourDetail() {
           className="w-full h-full object-cover antialiased opacity-90"
           style={{ imageRendering: "auto" }}
           loading="lazy"
-          alt={savedTour.destination}
+          alt={tour.destination}
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
@@ -192,7 +198,7 @@ function TourDetail() {
                 Itinerary
               </h3>
               <div className="space-y-0 ml-4 border-l-2 border-slate-200">
-                {[...Array(Number(savedTour.duration))]
+                {[...Array(Number(tour.duration))]
                   .map((_, i) => i + 1)
                   .map((day) => (
                     <div key={day} className="grid gap-2 pb-14 pl-10 last:pb-0">

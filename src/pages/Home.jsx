@@ -14,10 +14,9 @@ import heroImage from "../assets/hero-bg.jpg";
 import FeatureCard from "../components/cards/FeatureCard.jsx";
 import SearchBar from "../components/ui/SearchBar.jsx";
 
-function App() {
+function App({ tours, setTours }) {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
-  const [tours, setTours] = useState([]);
 
   useEffect(() => {
     const loadTours = async () => {
@@ -30,7 +29,7 @@ function App() {
     };
 
     loadTours();
-  }, []);
+  }, [setTours]);
 
   const handleSearch = () => {
     navigate("/destinations", { state: { initialQuery: query } });
@@ -89,6 +88,7 @@ function App() {
               {tours.map((tour) => (
                 <div
                   key={tour.id}
+                  onClick={() => navigate(`/tour/${tour.id}`)}
                   className="group relative aspect-3/4 overflow-hidden rounded-2xl cursor-pointer shadow-lg"
                 >
                   {/* Background Image */}

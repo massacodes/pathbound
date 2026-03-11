@@ -28,7 +28,7 @@ function App() {
       <ScrollToTop />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home tours={tours} setTours={setTours} />} />
         <Route
           path="/destinations"
           element={<Destinations tours={tours} setTours={setTours} />}
