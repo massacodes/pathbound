@@ -44,8 +44,16 @@ function Footer() {
               <ul className="space-y-2 text-gray-400">
                 <li>123 Travel Street</li>
                 <li>City, State 12345</li>
-                <li>Phone: (555) 123-4567</li>
-                <li>Email: info@pathbound.com</li>
+                <li>
+                  <a href="#" className="hover:text-accent">
+                    Phone: (555) 123-4567
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-accent">
+                    Email: info@pathbound.com
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
