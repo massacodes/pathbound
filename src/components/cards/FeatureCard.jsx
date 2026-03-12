@@ -11,7 +11,7 @@ function FeatureCard({ title, desc, iconSrc }) {
       <img
         src={iconSrc}
         alt=""
-        className="w-12 h-12 mb-6 group-hover:scale-110 transition-transform duration-300"
+        className="w-11 h-11 mb-5 group-hover:scale-110 transition-transform duration-300"
       />
       <p className="text-xl font-bold text-slate-900 mb-3">{title}</p>
       <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
