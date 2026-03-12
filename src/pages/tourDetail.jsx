@@ -103,11 +103,11 @@ function TourDetail() {
               <h1 className="text-4xl font-serif font-bold text-primary mb-2">
                 Explore {savedTour.destination}
               </h1>
-              <p className="text-xl text-slate-600 mb-5">
-                {savedTour.country} in {savedTour.duration} Days,{" "}
-                {Math.round(savedTour.duration - 1)} Nights in Destination
+              <p className="text-xl text-slate-600 mb-4">
+                {savedTour.country} in {tour.duration} Days,{" "}
+                {Math.round(tour.duration - 1)} Nights in Destination
               </p>
-              <div className="flex items-center gap-1 mb-10">
+              <div className="flex items-center gap-1 mb-9">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}

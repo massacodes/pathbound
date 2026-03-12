@@ -125,7 +125,7 @@ const looksLikeCountry = (query) => {
 export const fetchTours = async (query, toursCount) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   if (!query) {
-    // Return 12 random Tours if there's no search
+    // Return 9 random Tours if there's no search
     return Array.from({ length: toursCount || 9 }, () => createFakeTour());
   }
 
@@ -147,7 +147,10 @@ const defaultItineraryTitles = [
   "Historical Sites",
   "Local Cuisine Experience",
   "Nature & Scenery",
+  "Community Engagement",
+  "Cultural Exchange",
   "Free Day",
+  "Farewell Dinner",
   "Farewell & Departure",
 ];
 
