@@ -45,7 +45,7 @@ function About() {
       {/* Contact Section */}
       <section className="max-w-5xl mx-auto px-6 py-32 grid grid-cols-1 md:grid-cols-2 gap-16">
         <div>
-          <h2 className="font-serif text-3xl text-primary mb-4">
+          <h2 className="font-serif text-3xl font-semibold text-primary mb-4">
             Get in Touch
           </h2>
           <p className="text-ink/60 mb-8">
@@ -56,7 +56,7 @@ function About() {
             <div className="flex flex-row">
               <img src={mapIcon} alt="Map Icon" className="mr-2 w-6 h-6" />
               <p className="flex items-center text-ink/80 font-medium">
-                123 Nomad Way, San Francisco, CA
+                123 PathBound Way
               </p>
             </div>
             <div className="flex flex-row">
@@ -89,7 +89,7 @@ function About() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-bold text-accent mb-2">
+                <label className="block text-base font-bold text-accent mb-2">
                   Name
                 </label>
                 <input
@@ -103,7 +103,7 @@ function About() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-accent mb-2">
+                <label className="block text-base font-bold text-accent mb-2">
                   Email
                 </label>
                 <input
@@ -117,7 +117,7 @@ function About() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-accent mb-2">
+                <label className="block text-base font-bold text-accent mb-2">
                   Message
                 </label>
                 <textarea

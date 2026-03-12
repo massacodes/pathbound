@@ -23,10 +23,10 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    to="/explore"
+                    to="/destinations"
                     className="hover:text-accent transition-colors"
                   >
-                    Explore
+                    Destinations
                   </Link>
                 </li>
                 <li>
