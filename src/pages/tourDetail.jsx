@@ -93,7 +93,7 @@ function TourDetail() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-14">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* left column: tour info & itinerary */}
 
