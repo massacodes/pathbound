@@ -23,13 +23,12 @@ function About() {
     <div className="min-h-screen bg-surface pt-20">
       {/* Hero Section */}
       <section
-        className="px-6 py-16 text-center bg-primary"
+        className="px-6 py-16 text-center bg-primary min-h-[35vh] md:min-h-[60vh]"
         style={{
-          minHeight: "60vh",
           paddingTop: "6rem",
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${bgImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center top",
           backgroundRepeat: "no-repeat",
         }}
       >
