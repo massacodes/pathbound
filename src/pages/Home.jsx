@@ -47,14 +47,10 @@ function App({ tours, setTours }) {
             }}
           />
           <div className="max-w-7xl mx-auto text-center relative z-10">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white font-serif">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-20 text-white font-serif">
               Your next adventure, <br />
               <span>curated to perfection.</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-xl text-white mb-12">
-              Escape the ordinary. We curate world-class itineraries and secret
-              stays for the modern explorer.
-            </p>
 
             <SearchBar
               query={query}
