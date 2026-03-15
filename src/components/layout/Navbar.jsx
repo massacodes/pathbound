@@ -38,7 +38,7 @@ function Navbar() {
     `text-base transition-colors duration-200 ${
       isActive
         ? "text-primary border-b-2 border-primary pb-0.5"
-        : "hover:text-ink"
+        : "hover:text-primay/80"
     }`;
 
   const mobileLinkClassName = ({ isActive }) =>

@@ -230,8 +230,8 @@ function TourDetail() {
               <p className="text-slate-400 line-through text-lg">
                 From ${Math.round(savedTour.price * 1.6)}
               </p>
-              <div className="flex flex-col items-center gap-1 my-4">
-                <h2 className="text-5xl font-bold text-primary">
+              <div className="flex flex-col items-center gap-1 my-4 mt-1">
+                <h2 className="text-5xl font-bold text-primary mb-4">
                   ${savedTour.price}
                 </h2>
                 <span className="text-emerald-600 font-bold bg-emerald-100 px-3 py-1 rounded-full text-sm">
