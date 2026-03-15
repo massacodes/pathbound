@@ -35,10 +35,10 @@ function Navbar() {
   // Class names for active and inactive links
 
   const linkClassName = ({ isActive }) =>
-    `text-base transition-colors duration-200 ${
+    `text-base transition-colors duration-200 hover:text-primary ${
       isActive
         ? "text-primary border-b-2 border-primary pb-0.5"
-        : "hover:text-primay/80"
+        : "hover:text-ink"
     }`;
 
   const mobileLinkClassName = ({ isActive }) =>
