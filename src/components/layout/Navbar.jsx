@@ -54,14 +54,14 @@ function Navbar() {
         <div className="cursor-pointer text-2xl font-black tracking-tighter text-primary">
           PathBound
         </div>
-        <div className="hidden items-center gap-8 font-medium text-slate-600 md:flex">
+        <div className="hidden items-center gap-8 font-medium text-slate-600 xl:flex">
           {navigation.map((item) => (
             <NavLink key={item.to} to={item.to} className={linkClassName}>
               {item.label}
             </NavLink>
           ))}
         </div>
-        <button className="rounded-full bg-primary px-6 py-2.5 text-accent transition-all hover:bg-[#053629]">
+        <button className="rounded-full bg-primary sm:hidden px-6 py-2.5 text-accent transition-all hover:bg-[#053629]">
           Book a Trip
         </button>
         {/* Mobile menu button */}
@@ -73,12 +73,12 @@ function Navbar() {
           aria-label={
             isMenuOpen ? "Close navigation menu" : "Open navigation menu"
           }
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-primary shadow-sm transition-colors hover:bg-primary/5 md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-primary shadow-sm transition-colors hover:bg-primary/5 xl:hidden"
           onClick={() => setIsMenuOpen((open) => !open)}
         >
           <span className="sr-only">Toggle navigation menu</span>
           <svg
-            className={`h-5 w-5 transition-transform duration-300 ${
+            className={`size-6 transition-transform duration-300 ${
               isMenuOpen ? "rotate-90" : "rotate-0"
             }`}
             viewBox="0 0 24 24"
@@ -97,7 +97,7 @@ function Navbar() {
       </div>
 
       <div
-        className={`fixed inset-0 z-40 bg-ink/35 transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-ink/35 transition-opacity duration-300 xl:hidden ${
           isMenuOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
