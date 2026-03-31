@@ -208,7 +208,7 @@ function App({ tours, setTours }) {
                 placeholder="Enter your email"
                 className="flex-1 px-6 py-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-ink/60 outline-none transition-all"
               />
-              <button className="bg-accent border-2 border-primary text-primary px-8 py-4 rounded-xl font-bold hover:bg-[#1b1918] transition-all shadow-lg active:scale-95">
+              <button className="bg-accent border-2 border-primary text-primary px-8 py-4 rounded-xl font-bold hover:bg-primary hover:text-accent transition-all shadow-lg active:scale-95">
                 Join the Club
               </button>
             </form>
