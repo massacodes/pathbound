@@ -11,6 +11,8 @@
   /* Typography */
   --font-sans: "Inter", system-ui, sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
+
+  --breakpoint-xs: 380px; /* Extra Small: Mobile devices */
 }
 
 @layer base {

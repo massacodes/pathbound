@@ -61,7 +61,7 @@ function Navbar() {
             </NavLink>
           ))}
         </div>
-        <button className="rounded-full bg-primary sm:hidden xl:inline px-6 py-2.5 text-accent transition-all hover:bg-[#053629]">
+        <button className="rounded-full bg-primary xs:hidden xl:inline px-6 py-2.5 text-accent transition-all hover:bg-[#053629]">
           Book a Trip
         </button>
         {/* Mobile menu button */}
